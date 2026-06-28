@@ -6,7 +6,7 @@ import { useMimoStore, ACTIONS, getMood } from "../state/useMimoStore.js";
 import { createMimoFace } from "./face.js";
 
 // ?v bumped whenever the GLB changes, to defeat browser caching of the model
-const MODEL_URL = "./models/mimo.glb?v=face1";
+const MODEL_URL = "./models/mimo.glb?v=face2";
 
 /* Per-section screen anchors Mimo flies between (world units, camera fixed).
    Order MUST match the DOM section order in App.jsx. */
@@ -106,9 +106,6 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
   // attach the animated face material onto the named MimoFace plane
   useEffect(() => {
     const node = prepared.getObjectByName("MimoFace");
-    if (typeof window !== "undefined") {
-      window.__mimoFaceFound = !!node;
-    }
     if (!node) return;
     node.material = new THREE.MeshBasicMaterial({
       map: face.texture,
@@ -118,7 +115,6 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
       toneMapped: false,
     });
     node.renderOrder = 5;
-    if (typeof window !== "undefined") window.__mimoFace = node;
   }, [prepared, face]);
 
   // capture pointer globally (canvas has pointer-events: none)

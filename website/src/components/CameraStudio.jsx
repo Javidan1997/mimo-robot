@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
+import { useMimoStore } from "../state/useMimoStore.js";
+import CameraAR, { AR_STRINGS } from "./CameraAR.jsx";
 
 const DEFAULT_COPY = {
-  eyebrow: "Native camera",
-  title: "Open the device camera naturally.",
-  lead: "This section now hands off to the phone or tablet camera instead of embedding the camera inside a website panel.",
-  nativeTitle: "Use your device camera",
-  nativeBody: "Take a photo or record a video using the system camera screen. On desktop browsers this may open a file picker.",
+  eyebrow: "Camera AR",
+  nativeTitle: "See Mimo in your real space.",
+  nativeBody: "Open your phone's live camera and place the 3D Mimo into the real world — move it, scale it, and capture a photo to share.",
+  fallbackTitle: "Prefer the system camera?",
+  fallbackBody: "You can also take a plain photo or video with the native camera screen.",
   takePhoto: "Take photo",
   recordVideo: "Record video",
   captured: "Selected:",
@@ -13,10 +15,13 @@ const DEFAULT_COPY = {
 };
 
 export default function CameraStudio({ copy }) {
-  const text = { ...copy, ...DEFAULT_COPY };
+  const language = useMimoStore((s) => s.language);
+  const ar = AR_STRINGS[language] ?? AR_STRINGS.en;
+  const text = { ...DEFAULT_COPY, ...copy };
   const photoInputRef = useRef(null);
   const videoInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState("");
+  const [arOpen, setArOpen] = useState(false);
 
   const openNativeCamera = (inputRef) => {
     setSelectedFile("");
@@ -36,43 +41,44 @@ export default function CameraStudio({ copy }) {
           <span className="eyebrow__dot" /> {text.eyebrow}
         </p>
         <h2 className="section__title">{text.nativeTitle}</h2>
-        <p className="section__lead">{text.nativeBody}</p>
+        <p className="section__lead">{ar.intro}</p>
       </div>
 
-      <div className="native-camera glass">
-        <div className="native-camera__icon" aria-hidden="true">
-          CAM
+      <div className="ar-card glass">
+        <div className="ar-card__preview" aria-hidden="true">
+          <div className="ar-card__phone">
+            <span className="ar-card__mimo">▣</span>
+            <span className="ar-card__pulse" />
+          </div>
         </div>
-        <div className="native-camera__copy">
-          <h3>{text.title}</h3>
-          <p>{text.lead}</p>
-          {selectedFile && <p className="native-camera__status">{text.captured} {selectedFile}</p>}
+        <div className="ar-card__body">
+          <h3>{ar.title}</h3>
+          <p>{text.nativeBody}</p>
+          <div className="ar-card__actions">
+            <button className="btn btn--primary" type="button" onClick={() => setArOpen(true)}>
+              {ar.launch}
+            </button>
+          </div>
+
+          <div className="ar-card__fallback">
+            <p>{text.fallbackBody}</p>
+            <div className="ar-card__fallback-actions">
+              <button className="btn btn--ghost" type="button" onClick={() => openNativeCamera(photoInputRef)}>
+                {text.takePhoto}
+              </button>
+              <button className="btn btn--ghost" type="button" onClick={() => openNativeCamera(videoInputRef)}>
+                {text.recordVideo}
+              </button>
+            </div>
+            {selectedFile && <p className="native-camera__status">{text.captured} {selectedFile}</p>}
+          </div>
         </div>
-        <div className="native-camera__actions">
-          <button className="btn btn--primary" type="button" onClick={() => openNativeCamera(photoInputRef)}>
-            {text.takePhoto}
-          </button>
-          <button className="btn btn--ghost" type="button" onClick={() => openNativeCamera(videoInputRef)}>
-            {text.recordVideo}
-          </button>
-        </div>
-        <input
-          ref={photoInputRef}
-          className="native-camera__input"
-          type="file"
-          accept="image/*"
-          capture="environment"
-          onChange={handleCapture}
-        />
-        <input
-          ref={videoInputRef}
-          className="native-camera__input"
-          type="file"
-          accept="video/*"
-          capture="environment"
-          onChange={handleCapture}
-        />
+
+        <input ref={photoInputRef} className="native-camera__input" type="file" accept="image/*" capture="environment" onChange={handleCapture} />
+        <input ref={videoInputRef} className="native-camera__input" type="file" accept="video/*" capture="environment" onChange={handleCapture} />
       </div>
+
+      <CameraAR open={arOpen} onClose={() => setArOpen(false)} />
     </section>
   );
 }

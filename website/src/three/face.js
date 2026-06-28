@@ -153,7 +153,6 @@ export function createMimoFace() {
   }
 
   function render({ mood, accent, blink = 1, look = { x: 0, y: 0 }, mouthOpen = 0 }) {
-    if (typeof window !== "undefined") window.__faceMood = mood; // debug
     const d = FACES[mood] ?? FACES.happy;
     const glow = accent ?? MOOD_GLOW[mood] ?? "#39c2ff";
     ctx.clearRect(0, 0, W, H);

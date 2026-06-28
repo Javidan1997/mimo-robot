@@ -1,5 +1,28 @@
 import http from "node:http";
 import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+
+// Load credentials from .env.local / .env so `npm run tts` "just works"
+// after the user pastes their Azure key — no shell exports required.
+function loadEnvFiles() {
+  for (const file of [".env.local", ".env"]) {
+    try {
+      const full = path.resolve(process.cwd(), file);
+      if (!fs.existsSync(full)) continue;
+      for (const line of fs.readFileSync(full, "utf8").split(/\r?\n/)) {
+        const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/i);
+        if (!match) continue;
+        const key = match[1];
+        const value = match[2].replace(/^["']|["']$/g, "");
+        if (!(key in process.env)) process.env[key] = value;
+      }
+    } catch {
+      /* ignore unreadable env file */
+    }
+  }
+}
+loadEnvFiles();
 
 const PORT = Number(process.env.TTS_PORT || 8787);
 const REGION = process.env.AZURE_SPEECH_REGION;
@@ -10,12 +33,14 @@ const VOICES = {
   az: {
     locale: "az-AZ",
     voice: process.env.AZURE_SPEECH_VOICE_AZ || "az-AZ-BanuNeural",
-    rate: "-6%",
-    pitch: "+2%",
+    fallback: "az-AZ-BabekNeural",
+    rate: "-4%",
+    pitch: "+1%",
   },
   en: {
     locale: "en-US",
     voice: process.env.AZURE_SPEECH_VOICE_EN || "en-US-JennyNeural",
+    fallback: "en-US-AriaNeural",
     rate: "-3%",
     pitch: "+1%",
   },
@@ -69,25 +94,28 @@ function normalizeText(text, language) {
   return clean.slice(0, 420);
 }
 
-function buildSsml(text, language) {
+function buildSsml(text, language, voiceName) {
   const profile = VOICES[language] || VOICES.en;
+  // Break the line into sentences and add short pauses for natural pacing.
+  const sentences = String(text)
+    .split(/(?<=[.!?])\s+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const spoken = sentences.length
+    ? sentences.map((part) => escapeXml(part)).join('<break time="220ms"/>')
+    : escapeXml(text);
+
   return [
     `<speak version="1.0" xml:lang="${profile.locale}" xmlns="http://www.w3.org/2001/10/synthesis">`,
-    `<voice name="${profile.voice}">`,
-    `<prosody rate="${profile.rate}" pitch="${profile.pitch}">${escapeXml(text)}</prosody>`,
+    `<voice name="${voiceName || profile.voice}">`,
+    `<prosody rate="${profile.rate}" pitch="${profile.pitch}">${spoken}</prosody>`,
     "</voice>",
     "</speak>",
   ].join("");
 }
 
-async function synthesize(text, language) {
-  if (!REGION || !KEY) {
-    throw new Error("AZURE_SPEECH_REGION and AZURE_SPEECH_KEY are required.");
-  }
-
-  const profile = VOICES[language] || VOICES.en;
-  const ssml = buildSsml(text, language);
-  const response = await fetch(`https://${REGION}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+async function requestAzure(ssml) {
+  return fetch(`https://${REGION}.tts.speech.microsoft.com/cognitiveservices/v1`, {
     method: "POST",
     headers: {
       "Ocp-Apim-Subscription-Key": KEY,
@@ -97,13 +125,24 @@ async function synthesize(text, language) {
     },
     body: ssml,
   });
+}
 
-  if (!response.ok) {
-    const detail = await response.text().catch(() => "");
-    throw new Error(`Azure TTS failed for ${profile.voice}: ${response.status} ${detail}`);
+async function synthesize(text, language) {
+  if (!REGION || !KEY) {
+    throw new Error("AZURE_SPEECH_REGION and AZURE_SPEECH_KEY are required.");
   }
 
-  return Buffer.from(await response.arrayBuffer());
+  const profile = VOICES[language] || VOICES.en;
+  const candidates = [profile.voice, profile.fallback].filter(Boolean);
+  let lastDetail = "";
+
+  for (const voiceName of candidates) {
+    const response = await requestAzure(buildSsml(text, language, voiceName));
+    if (response.ok) return Buffer.from(await response.arrayBuffer());
+    lastDetail = `${response.status} ${await response.text().catch(() => "")}`;
+  }
+
+  throw new Error(`Azure TTS failed for ${candidates.join(", ")}: ${lastDetail}`);
 }
 
 const server = http.createServer(async (req, res) => {

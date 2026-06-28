@@ -1318,3 +1318,223 @@ button {
   }
 }
 
+
+/* ----------------------------------------------------------- camera AR */
+.ar-card {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 28px;
+  padding: 28px;
+  align-items: center;
+}
+
+.ar-card__preview {
+  display: grid;
+  place-items: center;
+}
+
+.ar-card__phone {
+  position: relative;
+  width: 130px;
+  height: 170px;
+  border-radius: 22px;
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(180deg, rgba(57, 194, 255, 0.12), rgba(124, 92, 255, 0.08));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.ar-card__mimo {
+  font-size: 40px;
+  color: var(--accent);
+  filter: drop-shadow(0 0 16px var(--accent));
+  animation: bob 3s ease-in-out infinite;
+}
+
+.ar-card__pulse {
+  position: absolute;
+  bottom: 18px;
+  width: 60px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  filter: blur(8px);
+  opacity: 0.5;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.ar-card__body h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.ar-card__body > p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.ar-card__actions {
+  margin: 18px 0;
+}
+
+.ar-card__fallback {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.ar-card__fallback > p {
+  color: var(--muted-2);
+  font-size: 13.5px;
+  margin-bottom: 12px;
+}
+
+.ar-card__fallback-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* fullscreen AR overlay */
+.ar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #000;
+  overflow: hidden;
+}
+
+.ar-video,
+.ar-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ar-video {
+  object-fit: cover;
+}
+
+.ar-canvas {
+  touch-action: none;
+  cursor: grab;
+}
+
+.ar-canvas:active {
+  cursor: grabbing;
+}
+
+.ar-close {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: 16px;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 18px;
+  backdrop-filter: blur(8px);
+}
+
+.ar-status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 32px;
+  z-index: 2;
+}
+
+.ar-status p {
+  max-width: 30ch;
+  color: #eaf2ff;
+  font-size: 16px;
+  line-height: 1.6;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 18px 22px;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+}
+
+.ar-hint {
+  position: absolute;
+  top: max(20px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px 16px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.ar-controls {
+  position: absolute;
+  bottom: max(28px, env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+
+.ar-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 26px;
+  backdrop-filter: blur(8px);
+}
+
+.ar-capture {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background: rgba(255, 255, 255, 0.15);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.ar-capture__ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.12s ease;
+}
+
+.ar-capture:active .ar-capture__ring {
+  transform: scale(0.86);
+}
+
+@media (max-width: 720px) {
+  .ar-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .ar-card__fallback-actions {
+    justify-content: center;
+  }
+}
+
+/* hide the flying-Mimo layer while the AR camera is open */
+.ar-active .flight-layer {
+  display: none;
+}
