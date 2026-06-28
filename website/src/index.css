@@ -56,6 +56,13 @@ button {
   cursor: pointer;
 }
 
+.svg-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+}
+
 .app {
   position: relative;
   min-height: 100vh;
@@ -247,7 +254,7 @@ button {
   pointer-events: none;
 }
 
-/* Mimo is purely decorative — nothing in this layer should ever capture a
+/* Mimo is purely decorative вЂ” nothing in this layer should ever capture a
    click. R3F sets an inline `pointer-events: auto` on its <canvas>, and a
    child can re-enable events even when an ancestor has `none`, so we force
    the whole subtree click-through with !important (incl. the inner canvas). */
@@ -356,6 +363,11 @@ button {
   background: rgba(57, 194, 255, 0.24);
 }
 
+.action-btn__icon {
+  width: 17px;
+  height: 17px;
+}
+
 /* ------------------------------------------------------- personality */
 .personality {
   justify-content: flex-end;
@@ -404,8 +416,9 @@ button {
   box-shadow: 0 8px 24px -8px var(--pill, var(--accent));
 }
 
-.mood-pill__emoji {
-  font-size: 15px;
+.mood-pill__icon {
+  width: 16px;
+  height: 16px;
 }
 
 .mood-readout {
@@ -419,9 +432,18 @@ button {
 }
 
 .mood-readout__face {
-  font-size: 46px;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  color: var(--accent);
   filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5));
   animation: bob 3s ease-in-out infinite;
+}
+
+.mood-readout__face .svg-icon {
+  width: 46px;
+  height: 46px;
 }
 
 @keyframes bob {
@@ -531,11 +553,6 @@ button {
   box-shadow: 0 0 0 3px rgba(57, 194, 255, 0.12);
 }
 
-.lab-emoji-input {
-  text-align: center;
-  font-size: 24px !important;
-}
-
 .lab-color-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -578,8 +595,10 @@ button {
   line-height: 1.2;
 }
 
-.lab-swatch span {
-  font-size: 23px;
+.lab-swatch__icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
 }
 
 .lab-sliders {
@@ -647,8 +666,9 @@ button {
   box-shadow: 0 22px 70px -24px var(--accent);
 }
 
-.lab-preview__orb span {
-  font-size: 62px;
+.lab-preview__orb .svg-icon {
+  width: 70px;
+  height: 70px;
   animation: bob 2.8s ease-in-out infinite;
 }
 
@@ -851,6 +871,11 @@ button {
   margin-bottom: 16px;
 }
 
+.card__icon .svg-icon {
+  width: 25px;
+  height: 25px;
+}
+
 .card h3 {
   font-size: 19px;
   margin-bottom: 9px;
@@ -908,497 +933,63 @@ button {
 }
 
 /* timeline */
-.camera-shell {
+/* native camera */
+.native-camera {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(330px, 0.85fr);
-  gap: 22px;
-  align-items: stretch;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(18px, 3vw, 34px);
+  align-items: center;
+  padding: clamp(24px, 4vw, 42px);
 }
 
-.camera-preview {
-  position: relative;
-  min-height: clamp(420px, 55vw, 620px);
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 48% 42%, rgba(57, 194, 255, 0.14), transparent 38%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
-}
-
-.camera-preview video,
-.camera-canvas,
-.camera-preview__empty {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.camera-preview video {
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.camera-preview video.is-live {
-  opacity: 1;
-}
-
-.camera-preview video.is-mirrored {
-  transform: scaleX(-1);
-}
-
-.camera-canvas {
-  z-index: 2;
-}
-
-.camera-preview__empty {
-  z-index: 1;
+.native-camera__icon {
   display: grid;
   place-items: center;
-  align-content: center;
-  gap: 14px;
-  padding: 34px;
-  color: var(--muted);
-  text-align: center;
-}
-
-.camera-preview__empty span {
-  display: grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 20px;
+  width: 86px;
+  height: 86px;
+  border-radius: 22px;
   border: 1px solid rgba(57, 194, 255, 0.32);
-  background: rgba(57, 194, 255, 0.1);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(57, 194, 255, 0.22), transparent 58%),
+    rgba(57, 194, 255, 0.08);
   color: var(--accent);
   font-family: var(--font-display);
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 900;
   letter-spacing: 0.08em;
 }
 
-.camera-preview__empty p {
-  max-width: 38ch;
-  line-height: 1.6;
-}
-
-.camera-panel {
-  padding: clamp(22px, 3vw, 34px);
-  display: grid;
-  gap: 20px;
-}
-
-.camera-mode-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  padding: 5px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.camera-mode-tabs button {
-  min-height: 38px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 12.5px;
-  font-weight: 800;
-}
-
-.camera-mode-tabs button.is-active {
-  color: #04121c;
-  background: var(--accent);
-  box-shadow: 0 10px 28px -16px rgba(57, 194, 255, 0.9);
-}
-
-.camera-actions,
-.camera-export {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.camera-controls {
-  display: grid;
-  gap: 15px;
-  padding: 18px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.camera-controls label {
-  display: grid;
-  gap: 8px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.camera-controls input {
-  accent-color: var(--accent);
-}
-
-.camera-error {
-  color: #ffd0d8;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.camera-notes {
-  display: grid;
-  gap: 9px;
-}
-
-.camera-notes p {
-  color: var(--muted-2);
-  font-size: 12.8px;
-  line-height: 1.55;
-}
-
-.controller-shell {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(310px, 0.72fr);
-  gap: 22px;
-  align-items: stretch;
-}
-
-.controller-pad,
-.controller-native {
-  padding: clamp(22px, 3vw, 34px);
-}
-
-.controller-device-tabs {
-  display: inline-grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  padding: 5px;
-  min-width: min(100%, 420px);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.controller-device-tabs button {
-  min-height: 38px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 12.5px;
-  font-weight: 800;
-}
-
-.controller-device-tabs button.is-active {
-  color: #04121c;
-  background: var(--accent);
-  box-shadow: 0 10px 28px -16px rgba(57, 194, 255, 0.9);
-}
-
-.controller-device-copy {
-  margin: 26px 0 22px;
-}
-
-.controller-device-copy h3,
-.controller-native h3 {
-  font-size: 22px;
+.native-camera__copy h3 {
+  font-size: clamp(24px, 3vw, 34px);
   margin-bottom: 10px;
 }
 
-.controller-device-copy p,
-.controller-native p {
+.native-camera__copy p {
   color: var(--muted);
   line-height: 1.65;
+  max-width: 58ch;
 }
 
-.controller-search {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.controller-search input {
-  flex: 1;
-  min-width: 0;
-  padding: 14px 16px;
-  border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  background: rgba(0, 0, 0, 0.3);
-  color: var(--ink);
-  font-size: 15px;
-  outline: none;
-}
-
-.controller-search input:focus {
-  border-color: var(--accent);
-}
-
-.controller-actions {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
-
-.controller-action {
-  min-height: 132px;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025)),
-    radial-gradient(circle at 16% 14%, rgba(57, 194, 255, 0.16), transparent 46%),
-    rgba(255, 255, 255, 0.035);
-  color: var(--ink);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-}
-
-.controller-action:hover {
-  transform: translateY(-3px);
-  border-color: rgba(57, 194, 255, 0.36);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.035)),
-    radial-gradient(circle at 18% 12%, rgba(57, 194, 255, 0.22), transparent 50%),
-    rgba(255, 255, 255, 0.055);
-}
-
-.controller-action__marker {
-  display: inline-grid;
-  place-items: center;
-  min-width: 42px;
-  height: 32px;
-  padding: 0 9px;
-  border-radius: 10px;
-  border: 1px solid rgba(57, 194, 255, 0.28);
-  background: rgba(57, 194, 255, 0.1);
-  color: var(--accent);
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  margin-bottom: 14px;
-}
-
-.controller-action__label {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 7px;
-}
-
-.controller-action small {
-  display: block;
-  color: var(--muted);
-  font-size: 12.5px;
-  line-height: 1.45;
-}
-
-.controller-native {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  justify-content: center;
-}
-
-.controller-coming {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 9px;
-}
-
-.controller-coming span {
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.035);
-  color: var(--ink);
-  font-size: 12.5px;
-  font-weight: 800;
-}
-
-.controller-native .btn {
-  align-self: flex-start;
-}
-
-.controller-status {
+.native-camera__status {
+  margin-top: 12px !important;
   color: var(--accent) !important;
   font-size: 13px;
-}
-
-.sticky-mimo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 85;
-  width: 154px;
-  padding: 8px;
-  border-radius: 18px;
-  user-select: none;
-  touch-action: none;
-}
-
-.sticky-mimo.is-minimized {
-  width: 92px;
-  padding: 7px;
-  border-radius: 16px;
-}
-
-.sticky-mimo__drag {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 22px;
-  padding: 0 2px 5px;
-  cursor: grab;
-}
-
-.sticky-mimo__drag:active {
-  cursor: grabbing;
-}
-
-.sticky-mimo__drag strong {
-  font-family: var(--font-display);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-}
-
-.sticky-mimo__status {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 10px var(--accent);
-}
-
-.sticky-mimo__canvas {
-  height: 104px;
-  border-radius: 14px;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 48% 45%, rgba(57, 194, 255, 0.18), transparent 52%),
-    rgba(255, 255, 255, 0.035);
-  border: 1px solid var(--line);
-}
-
-.sticky-mimo.is-minimized .sticky-mimo__canvas {
-  height: 62px;
-}
-
-.sticky-mimo__actions button,
-.sticky-mimo__chrome button {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.045);
-  color: var(--ink);
-  font-size: 9.5px;
   font-weight: 800;
 }
 
-.sticky-mimo__actions,
-.sticky-mimo__chrome {
+.native-camera__actions {
   display: flex;
-  gap: 5px;
-  margin-top: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-.sticky-mimo__actions button,
-.sticky-mimo__chrome button {
-  min-height: 26px;
-  padding: 0 8px;
-}
-
-.sticky-mimo__actions button:hover,
-.sticky-mimo__chrome button:hover,
-.sticky-mimo__actions button:focus-visible,
-.sticky-mimo__chrome button:focus-visible {
-  border-color: rgba(57, 194, 255, 0.38);
-  background: rgba(57, 194, 255, 0.1);
-}
-
-.sticky-mimo__actions button {
-  flex: 1;
-}
-
-.sticky-mimo__chrome {
-  justify-content: space-between;
-}
-
-.sticky-mimo.is-minimized .sticky-mimo__actions {
-  display: none;
-}
-
-.sticky-mimo.is-minimized .sticky-mimo__chrome button {
-  min-height: 22px;
-  padding: 0 7px;
-}
-
-.companion-shell {
-  display: grid;
-  grid-template-columns: minmax(260px, 0.45fr) minmax(0, 1fr);
-  gap: 22px;
-  align-items: stretch;
-}
-
-.companion-launch {
-  min-height: 260px;
-  width: 100%;
-  padding: 28px;
-  border: 1px solid var(--line);
-  color: var(--ink);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.companion-launch span {
-  display: grid;
-  place-items: center;
-  width: 66px;
-  height: 66px;
-  border-radius: 18px;
-  border: 1px solid rgba(57, 194, 255, 0.3);
-  background: rgba(57, 194, 255, 0.1);
-  color: var(--accent);
-  font-family: var(--font-display);
-  font-weight: 800;
-}
-
-.companion-launch strong {
-  font-family: var(--font-display);
-  font-size: 24px;
-  line-height: 1.15;
-}
-
-.companion-platforms {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.companion-platforms article {
-  padding: 24px;
-}
-
-.companion-platforms h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.companion-platforms p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.6;
+.native-camera__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .timeline {
@@ -1589,21 +1180,6 @@ button {
   .lab-shell {
     grid-template-columns: 1fr;
   }
-  .camera-shell {
-    grid-template-columns: 1fr;
-  }
-  .controller-shell {
-    grid-template-columns: 1fr;
-  }
-  .controller-actions {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .companion-shell {
-    grid-template-columns: 1fr;
-  }
-  .companion-platforms {
-    grid-template-columns: 1fr;
-  }
   .lab-preview {
     position: relative;
     top: auto;
@@ -1661,49 +1237,23 @@ button {
     height: 118px;
     border-radius: 26px;
   }
-  .lab-preview__orb span {
-    font-size: 48px;
+  .lab-preview__orb .svg-icon {
+    width: 54px;
+    height: 54px;
   }
   .waitlist__form {
     flex-direction: column;
   }
-  .camera-actions .btn,
-  .camera-export .btn,
-  .controller-search .btn,
-  .controller-native .btn {
+  .native-camera__actions .btn {
     width: 100%;
     justify-content: center;
   }
-  .controller-search {
-    flex-direction: column;
-  }
-  .controller-actions {
+  .native-camera {
     grid-template-columns: 1fr;
+    text-align: left;
   }
-  .controller-device-tabs {
-    width: 100%;
-    border-radius: 16px;
-    grid-template-columns: 1fr;
-  }
-  .sticky-mimo {
-    width: 112px;
-    padding: 7px;
-    border-radius: 16px;
-  }
-  .sticky-mimo__canvas {
-    height: 76px;
-  }
-  .sticky-mimo__drag {
-    min-height: 20px;
-  }
-  .sticky-mimo__actions button {
-    min-height: 24px;
-    padding: 0 5px;
-    font-size: 8.5px;
-  }
-  .camera-mode-tabs {
-    border-radius: 16px;
-    grid-template-columns: 1fr;
+  .native-camera__actions {
+    justify-content: stretch;
   }
   .nav__cta {
     display: none;
@@ -1767,3 +1317,4 @@ button {
     min-width: 34px;
   }
 }
+

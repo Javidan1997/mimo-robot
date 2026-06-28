@@ -4,6 +4,7 @@ import { MoodPills, ActionButtons, TalkButton } from "./MoodControls.jsx";
 import { getContent } from "../data/content.js";
 import { getCopy } from "../data/i18n.js";
 import { speak } from "../state/speech.js";
+import SvgIcon from "./SvgIcon.jsx";
 
 function useLocale() {
   const language = useMimoStore((s) => s.language);
@@ -99,7 +100,7 @@ export function Personality() {
         <MoodPills />
         <div className="mood-readout">
           <div className="mood-readout__face" aria-hidden="true">
-            {m.emoji}
+            <SvgIcon name={m.icon} />
           </div>
           <div className="mood-readout__meta">
             <span className="mood-readout__name">{m.label}</span>
@@ -116,10 +117,10 @@ export function Personality() {
 }
 
 const MOOD_LAB_BASE = [
-  { emoji: "💫", accent: "#ff7ad9", aura: "#ffd1ef", glow: 1.15, energy: 0.42, wiggle: 0.18 },
-  { emoji: "🌙", accent: "#818cf8", aura: "#c7d2fe", glow: 0.82, energy: 0.18, wiggle: 0.08 },
-  { emoji: "⚡", accent: "#facc15", aura: "#fde68a", glow: 1.36, energy: 0.72, wiggle: 0.27 },
-  { emoji: "🌱", accent: "#34d399", aura: "#bbf7d0", glow: 1.18, energy: 0.34, wiggle: 0.14 },
+  { icon: "focused", accent: "#ff7ad9", aura: "#ffd1ef", glow: 1.15, energy: 0.42, wiggle: 0.18 },
+  { icon: "moon", accent: "#818cf8", aura: "#c7d2fe", glow: 0.82, energy: 0.18, wiggle: 0.08 },
+  { icon: "bolt", accent: "#facc15", aura: "#fde68a", glow: 1.36, energy: 0.72, wiggle: 0.27 },
+  { icon: "leaf", accent: "#34d399", aura: "#bbf7d0", glow: 1.18, energy: 0.34, wiggle: 0.14 },
 ];
 
 function localizedLabPresets(copy) {
@@ -136,7 +137,7 @@ function toCustomMood(draft, language, fallbackLine) {
   return {
     key: "custom",
     label,
-    emoji: draft.emoji.trim() || "💫",
+    icon: draft.icon || "focused",
     accent: draft.accent,
     accentSoft: draft.aura,
     led,
@@ -212,13 +213,14 @@ export function MoodLab() {
               />
             </label>
             <label>
-              {lab.emoji}
-              <input
-                className="lab-emoji-input"
-                value={draft.emoji}
-                onChange={(e) => update("emoji", e.target.value)}
-                maxLength={4}
-              />
+              {lab.iconLabel}
+              <select value={draft.icon} onChange={(e) => update("icon", e.target.value)}>
+                {presets.map((preset) => (
+                  <option key={preset.icon} value={preset.icon}>
+                    {preset.name}
+                  </option>
+                ))}
+              </select>
             </label>
           </div>
 
@@ -250,7 +252,7 @@ export function MoodLab() {
                   applyMood(preset, true);
                 }}
               >
-                <span>{preset.emoji}</span>
+                <SvgIcon name={preset.icon} className="lab-swatch__icon" />
                 {preset.name}
               </button>
             ))}
@@ -336,7 +338,7 @@ export function MoodLab() {
 
         <div className="lab-preview glass" style={{ "--accent": draft.accent, "--accent-soft": draft.aura }}>
           <div className="lab-preview__orb" aria-hidden="true">
-            <span>{draft.emoji || "💫"}</span>
+            <SvgIcon name={draft.icon || "focused"} />
           </div>
           <div>
             <SectionEyebrow>{lab.liveCustomMood}</SectionEyebrow>
@@ -358,7 +360,7 @@ export function MoodLab() {
                 applyMood(draft, true);
               }}
             >
-              <span aria-hidden="true">🗣️</span> {lab.speakIt}
+              <SvgIcon name="speak" className="action-btn__icon" /> {lab.speakIt}
             </button>
             <button
               type="button"
@@ -368,7 +370,7 @@ export function MoodLab() {
                 speak(savedMood.line, language);
               }}
             >
-              <span aria-hidden="true">💫</span> {lab.recallSaved}
+              <SvgIcon name="saved" className="action-btn__icon" /> {lab.recallSaved}
             </button>
           </div>
           <div className="lab-play-deck">
@@ -396,7 +398,7 @@ export function Features() {
         {content.features.map((f) => (
           <article className="card glass" key={f.title}>
             <span className="card__icon" aria-hidden="true">
-              {f.icon}
+              <SvgIcon name={f.icon} />
             </span>
             <h3>{f.title}</h3>
             <p>{f.body}</p>
@@ -432,7 +434,7 @@ export function Everywhere() {
         {content.channels.map((c) => (
           <article className="card glass card--channel" key={c.title}>
             <span className="card__icon" aria-hidden="true">
-              {c.icon}
+              <SvgIcon name={c.icon} />
             </span>
             <h3>{c.title}</h3>
             <p>{c.body}</p>

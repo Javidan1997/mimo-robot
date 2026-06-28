@@ -1,8 +1,6 @@
 ﻿import { Suspense, lazy, useEffect } from "react";
 import Nav from "./components/Nav.jsx";
 import CameraStudio from "./components/CameraStudio.jsx";
-import DeviceController from "./components/DeviceController.jsx";
-import { StickyCompanionSection, StickyCompanionWidget } from "./components/StickyCompanion.jsx";
 import {
   Hero,
   ProjectScope,
@@ -85,7 +83,6 @@ export default function App() {
 
       <Nav />
       <MimoClickController />
-      <StickyCompanionWidget copy={getCopy(language).companion} />
 
       {/* Mimo flies across the whole site on a fixed, click-through layer. */}
       <div className="flight-layer" aria-hidden="true">
@@ -102,8 +99,6 @@ export default function App() {
         <Features />
         <Everywhere />
         <CameraStudio copy={getCopy(language).camera} />
-        <StickyCompanionSection copy={getCopy(language).companion} />
-        <DeviceController copy={getCopy(language).controller} />
         <Roadmap />
         <Waitlist />
       </main>

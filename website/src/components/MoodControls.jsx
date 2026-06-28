@@ -1,5 +1,6 @@
-﻿import { useMimoStore, MOOD_ORDER, ACTIONS, getAction, getMood } from "../state/useMimoStore.js";
+import { useMimoStore, MOOD_ORDER, ACTIONS, getAction, getMood } from "../state/useMimoStore.js";
 import { speak } from "../state/speech.js";
+import SvgIcon from "./SvgIcon.jsx";
 
 export function MoodPills({ compact = false }) {
   const language = useMimoStore((s) => s.language);
@@ -13,7 +14,7 @@ export function MoodPills({ compact = false }) {
         const active = key === mood;
         return (
           <button key={key} type="button" className={`mood-pill${active ? " is-active" : ""}`} style={active ? { "--pill": m.accent } : undefined} onClick={() => { setMood(key); speak(m.line, language); }} aria-pressed={active}>
-            <span className="mood-pill__emoji" aria-hidden="true">{m.emoji}</span>
+            <SvgIcon name={m.icon} className="mood-pill__icon" />
             {m.label}
           </button>
         );
@@ -30,7 +31,7 @@ export function TalkButton() {
   const m = getMood(mood, customMood, language);
   const idleLabel = language === "az" ? "Salam de" : "Say hi";
   const talkingLabel = language === "az" ? "Mimo danışır..." : "Mimo's chatting...";
-  return <button type="button" className="action-btn action-btn--talk" onClick={() => speak(m.line, language)}><span aria-hidden="true">🗣️</span> {talking ? talkingLabel : idleLabel}</button>;
+  return <button type="button" className="action-btn action-btn--talk" onClick={() => speak(m.line, language)}><SvgIcon name="speak" className="action-btn__icon" /> {talking ? talkingLabel : idleLabel}</button>;
 }
 
 export function ActionButtons() {
@@ -41,7 +42,7 @@ export function ActionButtons() {
     <div className="action-buttons">
       {ACTIONS.map((baseAction) => {
         const a = getAction(baseAction, language);
-        return <button key={a.key} type="button" className="action-btn" disabled={!!action} onClick={() => triggerAction(a.key)}><span aria-hidden="true">{a.emoji}</span> {a.label}</button>;
+        return <button key={a.key} type="button" className="action-btn" disabled={!!action} onClick={() => triggerAction(a.key)}><SvgIcon name={a.icon} className="action-btn__icon" /> {a.label}</button>;
       })}
     </div>
   );

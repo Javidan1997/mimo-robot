@@ -21,8 +21,6 @@ export default function Nav() {
         <a href="#features">{copy.features}</a>
         <a href="#everywhere">{copy.everywhere}</a>
         <a href="#camera">{copy.camera}</a>
-        <a href="#companion">{copy.companion}</a>
-        <a href="#controller">{copy.controller}</a>
         <a href="#roadmap">{copy.roadmap}</a>
       </nav>
       <div className="nav__actions">

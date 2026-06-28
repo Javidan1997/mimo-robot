@@ -84,13 +84,13 @@ export const CONTENT = {
       {
         phase: "İndi",
         title: "Veb və kamera prototipi",
-        body: "3D Mimo, əhval sistemi, səsli reaksiya, kliklə hərəkət, Camera Studio və Sticky Mimo təcrübəsi.",
+        body: "3D Mimo, əhval sistemi, səsli reaksiya, kliklə hərəkət və native kamera açılışı.",
         state: "live",
       },
       {
         phase: "Növbəti",
         title: "Companion və sosial axınlar",
-        body: "Daha güclü sticky kontroller, paylaşım axınları, sticker paketləri və kamera kontenti üçün hazır formatlar.",
+        body: "Paylaşım axınları, kamera kontenti üçün hazır formatlar və mobil tətbiq istiqaməti.",
         state: "soon",
       },
       {
@@ -198,13 +198,13 @@ export const CONTENT = {
       {
         phase: "Now",
         title: "Web and camera prototype",
-        body: "3D Mimo, mood system, voice reaction, click-to-move, Camera Studio, and Sticky Mimo experience.",
+        body: "3D Mimo, mood system, voice reaction, click-to-move, and native camera capture.",
         state: "live",
       },
       {
         phase: "Next",
         title: "Companion and social flows",
-        body: "Stronger sticky controller, share flows, sticker packs, and ready formats for camera content.",
+        body: "Share flows, ready formats for camera content, and the mobile app direction.",
         state: "soon",
       },
       {

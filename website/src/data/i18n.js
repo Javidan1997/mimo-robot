@@ -3,10 +3,10 @@ export const SITE_COPY = {
     meta: {
       title: "Mimo - İnteraktiv AI masa robotu",
       description: "Mimo səs, üz ifadəsi, işıq və hərəkətlə reaksiya verən interaktiv AI masa robotu platformasıdır. Veb prototipi sına və növbəti mərhələlərə erkən qoşul.",
-      socialDescription: "Mimo ilə 3D prototipdə tanış ol. Kamera AR, sticky companion, cihaz kontrolleri və gələcək fiziki robot təcrübəsini sına.",
+      socialDescription: "Mimo ilə 3D prototipdə tanış ol. Əhval sistemi, səsli reaksiya, native kamera açılışı və gələcək fiziki robot təcrübəsini sına.",
       locale: "az_AZ",
     },
-    nav: { scope: "Layihə", personality: "Şəxsiyyət", moodLab: "Əhval studiyası", features: "Funksiyalar", everywhere: "Platformalar", camera: "Kamera", companion: "Sticky", controller: "Kontroller", roadmap: "Yol xəritəsi", waitlist: "Erkən giriş" },
+    nav: { scope: "Layihə", personality: "Şəxsiyyət", moodLab: "Əhval studiyası", features: "Funksiyalar", everywhere: "Platformalar", camera: "Kamera", roadmap: "Yol xəritəsi", waitlist: "Erkən giriş" },
     hero: {
       eyebrow: "Mimo · interaktiv AI masa robotu",
       titleStart: "AI köməkçini",
@@ -20,7 +20,7 @@ export const SITE_COPY = {
     scope: {
       eyebrow: "Layihənin mahiyyəti",
       title: "Mimo tək bir 3D demo deyil.",
-      lead: "Məqsəd bir xarakteri bir neçə mühitdə işlədən məhsul platforması qurmaqdır: veb prototip, kamera AR, sticky companion, mobil tətbiqlər və gələcək fiziki masa robotu.",
+      lead: "Məqsəd bir xarakteri bir neçə mühitdə işlədən məhsul platforması qurmaqdır: veb prototip, native kamera axını, mobil tətbiqlər və gələcək fiziki masa robotu.",
       noteTitle: "Miqyaslana bilən əsas",
       note: "Şəxsiyyət, animasiya, səs, kamera təcrübəsi, qısayollar və cihaz inteqrasiyaları ayrı modullar kimi qurulur. Yeni platforma əlavə olunanda Mimonun xarakteri saxlanılır, yalnız istifadə mühiti dəyişir.",
     },
@@ -36,7 +36,7 @@ export const SITE_COPY = {
       title: "Mimo üçün davranış tonu yarat.",
       lead: "Rəngi, işıq ritmini, hərəkət enerjisini, üz stilini və səsləndiriləcək cümləni seç. Nəticəni dərhal 3D Mimo üzərində sına.",
       moodName: "Əhval adı",
-      emoji: "Simvol",
+      iconLabel: "Simvol",
       coreGlow: "Əsas işıq",
       softAura: "Yumşaq aura",
       ledVibe: "LED tonu",
@@ -165,7 +165,7 @@ export const SITE_COPY = {
     },
     waitlist: {
       title: "Növbəti Mimo mərhələsinə qoşul.",
-      lead: "Kamera AR, mobil companion, sticky desktop təcrübəsi və fiziki robot yenilikləri üçün erkən siyahıya yazıl.",
+      lead: "Native kamera axını, mobil təcrübə və fiziki robot yenilikləri üçün erkən siyahıya yazıl.",
       placeholder: "sen@email.com",
       submit: "Erkən girişə qoşul",
       done: "Siyahıya əlavə olundun. Növbəti Mimo yeniliklərini ilk görənlərdən olacaqsan.",
@@ -176,11 +176,11 @@ export const SITE_COPY = {
   en: {
     meta: {
       title: "Mimo - Interactive AI desk robot",
-      description: "Mimo is an interactive AI desk robot platform with voice, expression, light, motion, camera AR, sticky companion controls, and future device integrations.",
-      socialDescription: "Try Mimo as an interactive 3D prototype with camera AR, sticky companion controls, device shortcuts, and a path toward a physical desk robot.",
+      description: "Mimo is an interactive AI desk robot platform with voice, expression, light, motion, native camera capture, and future device integrations.",
+      socialDescription: "Try Mimo as an interactive 3D prototype with mood reactions, voice, native camera capture, and a path toward a physical desk robot.",
       locale: "en_US",
     },
-    nav: { scope: "Project", personality: "Personality", moodLab: "Mood Studio", features: "Features", everywhere: "Platforms", camera: "Camera", companion: "Sticky", controller: "Controller", roadmap: "Roadmap", waitlist: "Early access" },
+    nav: { scope: "Project", personality: "Personality", moodLab: "Mood Studio", features: "Features", everywhere: "Platforms", camera: "Camera", roadmap: "Roadmap", waitlist: "Early access" },
     hero: {
       eyebrow: "Mimo · interactive AI desk robot",
       titleStart: "Turning an AI assistant into",
@@ -201,7 +201,7 @@ export const SITE_COPY = {
     scope: {
       eyebrow: "Project scope",
       title: "Mimo is more than a 3D demo.",
-      lead: "The goal is a character platform that works across environments: web prototype, camera AR, sticky companion, mobile apps, and a future physical desk robot.",
+      lead: "The goal is a character platform that works across environments: web prototype, native camera capture, mobile apps, and a future physical desk robot.",
       noteTitle: "Built to scale",
       note: "Personality, motion, voice, camera experience, shortcuts, and device integrations are built as separate modules. When a new platform is added, the character stays consistent while the surface changes.",
     },
@@ -210,7 +210,7 @@ export const SITE_COPY = {
       title: "Create a behavior tone for Mimo.",
       lead: "Choose the color, light rhythm, movement energy, face style, and spoken line. Test the result immediately on the 3D model.",
       moodName: "Mood name",
-      emoji: "Symbol",
+      iconLabel: "Icon",
       coreGlow: "Main light",
       softAura: "Soft aura",
       ledVibe: "LED tone",
@@ -339,7 +339,7 @@ export const SITE_COPY = {
     },
     waitlist: {
       title: "Join the next Mimo stage.",
-      lead: "Sign up for updates on camera AR, mobile companion tools, sticky desktop experiences, and the physical robot.",
+      lead: "Sign up for updates on native camera capture, mobile experiences, and the physical robot.",
       placeholder: "you@email.com",
       submit: "Join early access",
       done: "You are on the list. You will be among the first to see the next Mimo updates.",

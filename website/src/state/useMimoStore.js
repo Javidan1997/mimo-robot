@@ -6,16 +6,16 @@ export const LANGUAGES = {
 };
 
 export const MOODS = {
-  happy: { key: "happy", emoji: "🙂", accent: "#39c2ff", accentSoft: "#7fdcff", lightIntensity: 1.15, spin: 0.35, bob: 0.16 },
-  loving: { key: "loving", emoji: "☺️", accent: "#ff7ad9", accentSoft: "#ffd1ef", lightIntensity: 1.18, spin: 0.24, bob: 0.14 },
-  curious: { key: "curious", emoji: "?", accent: "#22d3ee", accentSoft: "#7df0ff", lightIntensity: 1.0, spin: 0.2, bob: 0.1 },
-  silly: { key: "silly", emoji: "!", accent: "#facc15", accentSoft: "#fde68a", lightIntensity: 1.28, spin: 0.55, bob: 0.22 },
-  excited: { key: "excited", emoji: "★", accent: "#a855f7", accentSoft: "#d8b4fe", lightIntensity: 1.4, spin: 0.7, bob: 0.26 },
-  shy: { key: "shy", emoji: "·", accent: "#fb7185", accentSoft: "#fecdd3", lightIntensity: 0.92, spin: 0.16, bob: 0.08 },
-  focused: { key: "focused", emoji: "◎", accent: "#38bdf8", accentSoft: "#bae6fd", lightIntensity: 0.85, spin: 0.12, bob: 0.06 },
-  brave: { key: "brave", emoji: "▲", accent: "#34d399", accentSoft: "#bbf7d0", lightIntensity: 1.25, spin: 0.36, bob: 0.18 },
-  dreamy: { key: "dreamy", emoji: "◌", accent: "#818cf8", accentSoft: "#c7d2fe", lightIntensity: 0.78, spin: 0.14, bob: 0.09 },
-  sleepy: { key: "sleepy", emoji: "−", accent: "#64748b", accentSoft: "#94a3b8", lightIntensity: 0.5, spin: 0.06, bob: 0.05 },
+  happy: { key: "happy", icon: "happy", accent: "#39c2ff", accentSoft: "#7fdcff", lightIntensity: 1.15, spin: 0.35, bob: 0.16 },
+  loving: { key: "loving", icon: "loving", accent: "#ff7ad9", accentSoft: "#ffd1ef", lightIntensity: 1.18, spin: 0.24, bob: 0.14 },
+  curious: { key: "curious", icon: "curious", accent: "#22d3ee", accentSoft: "#7df0ff", lightIntensity: 1.0, spin: 0.2, bob: 0.1 },
+  silly: { key: "silly", icon: "silly", accent: "#facc15", accentSoft: "#fde68a", lightIntensity: 1.28, spin: 0.55, bob: 0.22 },
+  excited: { key: "excited", icon: "excited", accent: "#a855f7", accentSoft: "#d8b4fe", lightIntensity: 1.4, spin: 0.7, bob: 0.26 },
+  shy: { key: "shy", icon: "shy", accent: "#fb7185", accentSoft: "#fecdd3", lightIntensity: 0.92, spin: 0.16, bob: 0.08 },
+  focused: { key: "focused", icon: "focused", accent: "#38bdf8", accentSoft: "#bae6fd", lightIntensity: 0.85, spin: 0.12, bob: 0.06 },
+  brave: { key: "brave", icon: "brave", accent: "#34d399", accentSoft: "#bbf7d0", lightIntensity: 1.25, spin: 0.36, bob: 0.18 },
+  dreamy: { key: "dreamy", icon: "dreamy", accent: "#818cf8", accentSoft: "#c7d2fe", lightIntensity: 0.78, spin: 0.14, bob: 0.09 },
+  sleepy: { key: "sleepy", icon: "sleepy", accent: "#64748b", accentSoft: "#94a3b8", lightIntensity: 0.5, spin: 0.06, bob: 0.05 },
 };
 
 const MOOD_COPY = {
@@ -48,7 +48,7 @@ const MOOD_COPY = {
 export const DEFAULT_CUSTOM_MOOD = {
   key: "custom",
   label: "Parlaq Fokus",
-  emoji: "◎",
+  icon: "focused",
   accent: "#ff7ad9",
   accentSoft: "#ffd1ef",
   led: "Sabit mavi ritm",
@@ -98,15 +98,15 @@ export function getMoodClickAction(mood) {
 }
 
 export const ACTIONS = [
-  { key: "wave", label: "Greet", emoji: "HI", duration: 1.2 },
-  { key: "spin", label: "Turn", emoji: "360", duration: 1.1 },
-  { key: "flip", label: "Flip", emoji: "UP", duration: 1.2 },
-  { key: "loop", label: "Loop", emoji: "LOOP", duration: 1.8 },
-  { key: "boost", label: "Boost", emoji: "GO", duration: 1.0 },
-  { key: "peek", label: "Peek", emoji: "EYE", duration: 1.35 },
-  { key: "shimmy", label: "Signal", emoji: "LED", duration: 1.25 },
-  { key: "heart", label: "Support", emoji: "OK", duration: 1.2 },
-  { key: "orbit", label: "Orbit", emoji: "ORB", duration: 1.55 },
+  { key: "wave", label: "Greet", icon: "wave", duration: 1.2 },
+  { key: "spin", label: "Turn", icon: "spin", duration: 1.1 },
+  { key: "flip", label: "Flip", icon: "flip", duration: 1.2 },
+  { key: "loop", label: "Loop", icon: "loop", duration: 1.8 },
+  { key: "boost", label: "Boost", icon: "boost", duration: 1.0 },
+  { key: "peek", label: "Peek", icon: "peek", duration: 1.35 },
+  { key: "shimmy", label: "Signal", icon: "signal", duration: 1.25 },
+  { key: "heart", label: "Support", icon: "support", duration: 1.2 },
+  { key: "orbit", label: "Orbit", icon: "orbit", duration: 1.55 },
 ];
 
 export const useMimoStore = create((set) => ({

@@ -44,20 +44,16 @@ default. Override them with `AZURE_SPEECH_VOICE_AZ` and `AZURE_SPEECH_VOICE_EN`.
 - **Mimo flies across the whole site.** A fixed, click-through `<Canvas>` layer
   (`.flight-layer`, `pointer-events: none`) sits above the content, and Mimo flies between
   per-section screen anchors as you scroll.
-- **Camera Studio** lets visitors open their camera, place a 3D Mimo overlay in the frame,
-  capture/share a photo, and export a transparent 512x512 WebP sticker asset.
-- **Sticky Companion** demonstrates Mimo as a draggable, dockable 3D object in the web app.
-  A true out-of-browser overlay requires native companion apps: Tauri/Electron for desktop,
-  App Intents/widgets/Live Activities on iOS, and overlay bubbles or PiP-style surfaces on
-  Android.
+- **Native Camera** lets visitors hand off to the phone or tablet camera using the device's
+  own camera UI instead of an embedded web camera panel.
 - `src/three/MimoModel.jsx` — the flight pilot. Scroll position blends between `ANCHORS`
   (one per section), with figure-8 hover drift, **banking into turns**, velocity-based
   pitch, cursor look, and one-shot tricks. Forwards a ref so the trail can follow it.
 - `src/three/MimoStage.jsx` — the full-screen R3F `<Canvas>`: mood-tinted lights, a glowing
   mood-colored **`<Trail>`** that streaks behind Mimo, and a soft aura billboard that flies
   along with it.
-- **Tricks** (`ACTIONS` in the store): 👋 Wave · 🌀 Barrel roll · 🤸 Backflip ·
-  🎢 Loop-the-loop · 🚀 Boost — triggered from the hero buttons.
+- **Tricks** (`ACTIONS` in the store): professional inline SVG icons for Wave, Barrel roll,
+  Backflip, Loop-the-loop, and Boost are triggered from the hero buttons.
 - `src/state/useMimoStore.js` — the 5 **moods** (happy, curious, excited, focused, sleepy),
   each mapping to an accent color, light intensity, motion energy, LED/face descriptor and a
   spoken line. Mirrors Mimo's real "every reaction = face + LED + servo + sound" concept.
@@ -68,11 +64,11 @@ default. Override them with `AZURE_SPEECH_VOICE_AZ` and `AZURE_SPEECH_VOICE_EN`.
 
 ## Sections
 Hero (live 3D) · Personality lab (mood switcher) · Features · Everywhere
-(Instagram / WhatsApp / AR filters / stickers) · Camera Studio · Sticky Companion · Roadmap (3D → social → iOS & Android →
+(Instagram / WhatsApp / AR filters / stickers) · Native Camera · Roadmap (3D → social → iOS & Android →
 physical robot) · Waitlist.
 
 ## Known follow-ups
-- ✅ ~~Model is 15 MB~~ — now Draco + 2K-WebP compressed to **757 KB**.
+- Done: ~~Model is 15 MB~~ — now Draco + 2K-WebP compressed to **757 KB**.
 - Waitlist form is **front-end only** — wire it to a real backend/CRM (e.g. an email API).
 - Open Graph image `public/social/og-cover.png` referenced in `index.html` is not yet added.
 - Draco decoder is fetched from the gstatic CDN at runtime (via drei's `useGLTF`); self-host
