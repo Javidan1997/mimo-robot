@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mimo">
+  <defs>
+    <radialGradient id="bg" cx="32%" cy="24%" r="74%">
+      <stop offset="0" stop-color="#243142"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <rect x="11" y="14" width="42" height="32" rx="8" fill="#0d1320" stroke="#2c394c" stroke-width="2"/>
+  <circle cx="25" cy="29" r="6" fill="#dff7ff" filter="url(#glow)"/>
+  <circle cx="39" cy="29" r="6" fill="#dff7ff" filter="url(#glow)"/>
+  <circle cx="27" cy="27" r="2" fill="#39c2ff"/>
+  <circle cx="41" cy="27" r="2" fill="#39c2ff"/>
+  <path d="M25 38c3.5 3 10.5 3 14 0" fill="none" stroke="#39c2ff" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="32" cy="53" r="4" fill="#39c2ff" filter="url(#glow)"/>
+</svg>

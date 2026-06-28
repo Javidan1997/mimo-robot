@@ -1,31 +1,60 @@
 <!doctype html>
-<html lang="en">
+<html lang="az">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Mimo — Your Tiny AI Desk Friend</title>
-    <meta
-      name="description"
-      content="Mimo is a cute, expressive AI desk friend that listens, chats back, reacts with its whole tiny self, and follows you across apps, AR and 3D."
-    />
-    <meta name="theme-color" content="#07090d" />
-
-    <!-- Open Graph / social sharing for Instagram, WhatsApp, etc. -->
+    <script>
+      if (location.hostname === "mimorobot.online" && location.protocol !== "https:") {
+        location.replace("https://" + location.host + location.pathname + location.search + location.hash);
+      }
+    </script>
+    <title>Mimo — Kiçik AI Masa Dostun</title>
+    <meta name="description" content="Mimo dinləyən, danışan və üz, işıq, hərəkət və səs ilə reaksiya verən sevimli AI masa robotudur. İnteraktiv 3D Mimo ilə tanış ol və gözləmə siyahısına qoşul." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#39c2ff" />
+    <meta name="application-name" content="Mimo" />
+    <meta name="apple-mobile-web-app-title" content="Mimo" />
+    <link rel="canonical" href="https://mimorobot.online/" />
+    <link rel="alternate" hreflang="az" href="https://mimorobot.online/" />
+    <link rel="alternate" hreflang="en" href="https://mimorobot.online/" />
+    <link rel="alternate" hreflang="x-default" href="https://mimorobot.online/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Mimo — Your Tiny AI Desk Friend" />
-    <meta
-      property="og:description"
-      content="Meet Mimo in interactive 3D. Change its mood, hear its little voice, and bring its personality to Instagram, WhatsApp and AR filters."
-    />
-    <meta property="og:image" content="./social/og-cover.png" />
+    <meta property="og:site_name" content="Mimo" />
+    <meta property="og:url" content="https://mimorobot.online/" />
+    <meta property="og:title" content="Mimo — Kiçik AI Masa Dostun" />
+    <meta property="og:description" content="Mimo ilə interaktiv 3D-də tanış ol. Əhvalını dəyiş, balaca səsini eşit və şəxsiyyətini Instagram, WhatsApp və AR filtrlərə apar." />
+    <meta property="og:image" content="https://mimorobot.online/social/og-cover.png" />
+    <meta property="og:image:secure_url" content="https://mimorobot.online/social/og-cover.png" />
+    <meta property="og:image:alt" content="Mimo, parlaq üzlü qara AI masa robotu" />
+    <meta property="og:locale" content="az_AZ" />
     <meta name="twitter:card" content="summary_large_image" />
-
+    <meta name="twitter:title" content="Mimo — Kiçik AI Masa Dostun" />
+    <meta name="twitter:description" content="İnteraktiv 3D Mimo ilə oyna, əhvalını dəyiş və erkən giriş siyahısına qoşul." />
+    <meta name="twitter:image" content="https://mimorobot.online/social/og-cover.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Mimo",
+        "url": "https://mimorobot.online/",
+        "image": "https://mimorobot.online/social/og-cover.png",
+        "description": "Mimo is a tiny expressive AI desk robot that listens, chats back, and reacts with face, light, motion, and sound.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Mimo"
+        },
+        "category": "AI desk robot",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "AI companion and smart desk robot fans"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
