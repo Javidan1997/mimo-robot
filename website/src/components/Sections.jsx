@@ -52,6 +52,37 @@ export function Hero() {
   );
 }
 
+/* --------------------------------------------------------------- Scope */
+export function ProjectScope() {
+  const { copy, content } = useLocale();
+  const text = copy.scope;
+
+  return (
+    <section className="scope section" id="scope">
+      <div className="scope__intro">
+        <div>
+          <SectionEyebrow>{text.eyebrow}</SectionEyebrow>
+          <h2 className="section__title">{text.title}</h2>
+          <p className="section__lead">{text.lead}</p>
+        </div>
+        <aside className="scope__note glass">
+          <h3>{text.noteTitle}</h3>
+          <p>{text.note}</p>
+        </aside>
+      </div>
+      <div className="scope__grid">
+        {content.scaleItems.map((item) => (
+          <article className="scope-step" key={item.title}>
+            <span>{item.marker}</span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /* ----------------------------------------------------------- Personality */
 export function Personality() {
   const { language, copy } = useLocale();

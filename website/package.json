@@ -6,6 +6,7 @@
   "description": "Marketing + interactive 3D experience site for Mimo, the tiny AI desk friend.",
   "scripts": {
     "dev": "vite",
+    "tts": "node scripts/tts-proxy.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

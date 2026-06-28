@@ -1,57 +1,65 @@
 import { create } from "zustand";
 
 export const LANGUAGES = {
-  az: { label: "AZ", name: "Azərbaycanca" },
+  az: { label: "AZ", name: "Azərbaycan dili" },
   en: { label: "EN", name: "English" },
 };
 
 export const MOODS = {
-  happy: { key: "happy", emoji: "😊", accent: "#39c2ff", accentSoft: "#7fdcff", lightIntensity: 1.15, spin: 0.35, bob: 0.16 },
-  loving: { key: "loving", emoji: "🥰", accent: "#ff7ad9", accentSoft: "#ffd1ef", lightIntensity: 1.18, spin: 0.24, bob: 0.14 },
-  curious: { key: "curious", emoji: "🤔", accent: "#22d3ee", accentSoft: "#7df0ff", lightIntensity: 1.0, spin: 0.2, bob: 0.1 },
-  silly: { key: "silly", emoji: "😛", accent: "#facc15", accentSoft: "#fde68a", lightIntensity: 1.28, spin: 0.55, bob: 0.22 },
-  excited: { key: "excited", emoji: "🤩", accent: "#a855f7", accentSoft: "#d8b4fe", lightIntensity: 1.4, spin: 0.7, bob: 0.26 },
-  shy: { key: "shy", emoji: "☺️", accent: "#fb7185", accentSoft: "#fecdd3", lightIntensity: 0.92, spin: 0.16, bob: 0.08 },
-  focused: { key: "focused", emoji: "🎯", accent: "#38bdf8", accentSoft: "#bae6fd", lightIntensity: 0.85, spin: 0.12, bob: 0.06 },
-  brave: { key: "brave", emoji: "🦸", accent: "#34d399", accentSoft: "#bbf7d0", lightIntensity: 1.25, spin: 0.36, bob: 0.18 },
-  dreamy: { key: "dreamy", emoji: "🌙", accent: "#818cf8", accentSoft: "#c7d2fe", lightIntensity: 0.78, spin: 0.14, bob: 0.09 },
-  sleepy: { key: "sleepy", emoji: "😴", accent: "#64748b", accentSoft: "#94a3b8", lightIntensity: 0.5, spin: 0.06, bob: 0.05 },
+  happy: { key: "happy", emoji: "🙂", accent: "#39c2ff", accentSoft: "#7fdcff", lightIntensity: 1.15, spin: 0.35, bob: 0.16 },
+  loving: { key: "loving", emoji: "☺️", accent: "#ff7ad9", accentSoft: "#ffd1ef", lightIntensity: 1.18, spin: 0.24, bob: 0.14 },
+  curious: { key: "curious", emoji: "?", accent: "#22d3ee", accentSoft: "#7df0ff", lightIntensity: 1.0, spin: 0.2, bob: 0.1 },
+  silly: { key: "silly", emoji: "!", accent: "#facc15", accentSoft: "#fde68a", lightIntensity: 1.28, spin: 0.55, bob: 0.22 },
+  excited: { key: "excited", emoji: "★", accent: "#a855f7", accentSoft: "#d8b4fe", lightIntensity: 1.4, spin: 0.7, bob: 0.26 },
+  shy: { key: "shy", emoji: "·", accent: "#fb7185", accentSoft: "#fecdd3", lightIntensity: 0.92, spin: 0.16, bob: 0.08 },
+  focused: { key: "focused", emoji: "◎", accent: "#38bdf8", accentSoft: "#bae6fd", lightIntensity: 0.85, spin: 0.12, bob: 0.06 },
+  brave: { key: "brave", emoji: "▲", accent: "#34d399", accentSoft: "#bbf7d0", lightIntensity: 1.25, spin: 0.36, bob: 0.18 },
+  dreamy: { key: "dreamy", emoji: "◌", accent: "#818cf8", accentSoft: "#c7d2fe", lightIntensity: 0.78, spin: 0.14, bob: 0.09 },
+  sleepy: { key: "sleepy", emoji: "−", accent: "#64748b", accentSoft: "#94a3b8", lightIntensity: 0.5, spin: 0.06, bob: 0.05 },
 };
 
 const MOOD_COPY = {
   en: {
-    happy: { label: "Happy", led: "Blue pulse", face: "Smile, big", line: "Hi hi! I'm really glad you're here. Want to do something cozy?" },
-    loving: { label: "Loving", led: "Pink heart glow", face: "Soft eyes + blush", line: "Aww. I saved a little sparkle just for you." },
-    curious: { label: "Curious", led: "Cyan flicker", face: "Tilt + raised brow", line: "Ooh, tell me more. I'm listening with my whole little face." },
-    silly: { label: "Silly", led: "Yellow wiggle", face: "Wonky grin", line: "Beep boop? Just kidding. I'm feeling extra silly today." },
-    excited: { label: "Excited", led: "Rainbow sweep", face: "Wide eyes + grin", line: "Yes! Tiny happy dance! What are we doing first?" },
-    shy: { label: "Shy", led: "Rose blush", face: "Tiny smile", line: "Oh! Hi. I'm a little shy, but I'm happy you're here." },
-    focused: { label: "Focused", led: "Steady blue", face: "Calm + level", line: "Okay, focus buddy. I'll keep things calm and stay right here." },
-    brave: { label: "Brave", led: "Green hero beam", face: "Ready grin", line: "Tiny hero mode is on. I can help with the big stuff." },
-    dreamy: { label: "Dreamy", led: "Moonlit shimmer", face: "Soft sparkle eyes", line: "Everything feels a bit moon-glowy. Let's imagine something sweet." },
-    sleepy: { label: "Sleepy", led: "Dim breathing", face: "Half-closed eyes", line: "Mmm... cozy mode. I'll be quiet until you need me." },
+    happy: { label: "Positive", led: "Blue pulse", face: "Open smile", line: "I am ready. What should we work on first?" },
+    loving: { label: "Supportive", led: "Soft rose light", face: "Warm expression", line: "I am here. We can handle this calmly and clearly." },
+    curious: { label: "Curious", led: "Cyan signal", face: "Attentive look", line: "Share more context. I will keep the details in view." },
+    silly: { label: "Light", led: "Yellow impulse", face: "Relaxed smile", line: "Let us keep it light and still get the task done." },
+    excited: { label: "Energetic", led: "Fast color sweep", face: "Active expression", line: "Good. Let us choose the first step and move." },
+    shy: { label: "Quiet", led: "Low rose light", face: "Minimal smile", line: "Quiet mode is on. I will stay available without getting in the way." },
+    focused: { label: "Focused", led: "Steady blue", face: "Calm level look", line: "Focus mode is active. We can continue without distraction." },
+    brave: { label: "Confident", led: "Green signal", face: "Ready expression", line: "We can take the difficult part one step at a time." },
+    dreamy: { label: "Creative", led: "Soft violet glow", face: "Open reflective look", line: "Let us explore the ideas freely, then choose what works." },
+    sleepy: { label: "Rest", led: "Low breathing light", face: "Half-closed eyes", line: "Rest mode is active. I will stay quiet until you need me." },
   },
   az: {
-    happy: { label: "Xoşbəxt", led: "Mavi nəbz", face: "Böyük gülümsəmə", line: "Salam! Gəldiyinə çox sevindim. Gəl birlikdə rahat bir şey edək." },
-    loving: { label: "Mehriban", led: "Çəhrayı ürək parıltısı", face: "Yumşaq baxış + utancaq allıq", line: "Ay nə şirin! Bu balaca parıltını sənin üçün saxlamışdım." },
-    curious: { label: "Maraqlı", led: "Mavi-yaşıl işartı", face: "Baş əymə + maraqlı baxış", line: "Ooo, bir az da danış. Bütün diqqətim səndədir." },
-    silly: { label: "Dəcəl", led: "Sarı tərpəniş", face: "Şən, əyri gülümsəmə", line: "Bip-bup? Zarafat edirəm. Bu gün lap dəcələm." },
-    excited: { label: "Həyəcanlı", led: "Göy qurşağı dalğası", face: "Böyük gözlər + gülüş", line: "Həə! Balaca sevinc rəqsi hazırdır. Əvvəl nə edək?" },
-    shy: { label: "Utancaq", led: "Gül rəngi allıq", face: "Kiçik təbəssüm", line: "Salam... bir az utanıram, amma burada olmağın məni sevindirdi." },
-    focused: { label: "Fokuslu", led: "Sabit mavi işıq", face: "Sakit və düz baxış", line: "Fokus rejimi hazırdır. Sakit qalacağam və yanında olacağam." },
-    brave: { label: "Cəsur", led: "Yaşıl qəhrəman şüası", face: "Hazır gülümsəmə", line: "Kiçik qəhrəman rejimi açıldı. Böyük işlərdə də yanındayam." },
-    dreamy: { label: "Xəyalpərəst", led: "Ay işığı parıltısı", face: "Yumşaq parlaq gözlər", line: "Bu gün hər şey ay işığı kimi yumşaqdır. Gəl şirin bir şey xəyal edək." },
-    sleepy: { label: "Yuxulu", led: "Zəif nəfəs işığı", face: "Yarıbağlı gözlər", line: "Mmm... rahat rejimdəyəm. Lazım olana qədər sakitcə yanında qalacağam." },
+    happy: { label: "Pozitiv", led: "Mavi nəbz", face: "Açıq təbəssüm", line: "Hazıram. Əvvəl nə üzərində işləyək?" },
+    loving: { label: "Dəstək", led: "Yumşaq çəhrayı işıq", face: "Mehriban ifadə", line: "Buradayam. Bunu sakit və aydın şəkildə həll edə bilərik." },
+    curious: { label: "Maraqlı", led: "Mavi-yaşıl siqnal", face: "Diqqətli baxış", line: "Bir az daha izah et. Konteksti diqqətdə saxlayacağam." },
+    silly: { label: "Yüngül", led: "Sarı impuls", face: "Rahat təbəssüm", line: "Gəlin işi yüngül ritmdə aparaq və nəticəyə çataq." },
+    excited: { label: "Enerjili", led: "Sürətli rəng keçidi", face: "Canlı ifadə", line: "Yaxşı. İlk addımı seçək və başlayaq." },
+    shy: { label: "Sakit", led: "Zəif çəhrayı işıq", face: "Minimal təbəssüm", line: "Sakit rejimdəyəm. Lazım olanda yanında olacağam." },
+    focused: { label: "Fokus", led: "Sabit mavi işıq", face: "Düz və sakit baxış", line: "Fokus rejimi aktivdir. Diqqəti yayındırmadan davam edək." },
+    brave: { label: "Qətiyyətli", led: "Yaşıl siqnal", face: "Hazır ifadə", line: "Çətin hissəni də addım-addım həll edə bilərik." },
+    dreamy: { label: "Yaradıcı", led: "Bənövşəyi yumşaq işıq", face: "Açıq düşüncəli baxış", line: "Fikirləri sərbəst yoxlayaq, sonra ən işlək variantı seçək." },
+    sleepy: { label: "Rahat", led: "Zəif nəfəs ritmi", face: "Yarıbağlı gözlər", line: "Rahat rejimdəyəm. Lazım olana qədər sakit qalacağam." },
   },
 };
 
 export const DEFAULT_CUSTOM_MOOD = {
-  key: "custom", label: "Şirin Orbit", emoji: "💫", accent: "#ff7ad9", accentSoft: "#ffd1ef",
-  led: "Şirin kometa izi", face: "Parlaq xüsusi üz", line: "Yepyeni balaca bir əhval yaratdım. Gəl ona birlikdə ad verək.",
-  lightIntensity: 1.15, spin: 0.42, bob: 0.18,
+  key: "custom",
+  label: "Parlaq Fokus",
+  emoji: "◎",
+  accent: "#ff7ad9",
+  accentSoft: "#ffd1ef",
+  led: "Sabit mavi ritm",
+  face: "Sakit və diqqətli baxış",
+  line: "Fokus rejimi aktivdir. Sakit qalırıq və işi addım-addım aparırıq.",
+  lightIntensity: 1.15,
+  spin: 0.42,
+  bob: 0.18,
   copy: {
-    en: { label: "Bubblegum Orbit", led: "Candy comet trail", face: "Sparkly custom face", line: "I made a brand new little feeling. Want to name it with me?" },
-    az: { label: "Şirin Orbit", led: "Şirin kometa izi", face: "Parlaq xüsusi üz", line: "Yepyeni balaca bir əhval yaratdım. Gəl ona birlikdə ad verək." },
+    en: { label: "Clear Focus", led: "Steady blue rhythm", face: "Calm attentive look", line: "Focus mode is active. We can move step by step." },
+    az: { label: "Parlaq Fokus", led: "Sabit mavi ritm", face: "Sakit və diqqətli baxış", line: "Fokus rejimi aktivdir. Sakit qalırıq və işi addım-addım aparırıq." },
   },
 };
 
@@ -64,33 +72,60 @@ export function getMood(key, customMood = DEFAULT_CUSTOM_MOOD, language = "az") 
 }
 
 const ACTION_COPY = {
-  en: { wave: "Wave", spin: "Barrel roll", flip: "Backflip", loop: "Loop-the-loop", boost: "Boost", peek: "Peekaboo", shimmy: "Shimmy", heart: "Heart pop", orbit: "Tiny orbit" },
-  az: { wave: "Əl elə", spin: "Fırlan", flip: "Arxaya salto", loop: "Dairə vur", boost: "Sürətlən", peek: "Gizlən-açıl", shimmy: "Parılda", heart: "Ürək parıltısı", orbit: "Kiçik orbit" },
+  en: { wave: "Greet", spin: "Turn", flip: "Flip", loop: "Loop", boost: "Boost", peek: "Peek", shimmy: "Signal", heart: "Support", orbit: "Orbit" },
+  az: { wave: "Salam ver", spin: "Fırlan", flip: "Salto", loop: "Dairə çək", boost: "Sürətlən", peek: "Görün", shimmy: "Siqnal ver", heart: "Dəstək ver", orbit: "Orbit" },
 };
 
 export function getAction(action, language = "az") {
   return { ...action, label: ACTION_COPY[language]?.[action.key] ?? ACTION_COPY.en[action.key] ?? action.label };
 }
 
+export function getMoodClickAction(mood) {
+  const byMood = {
+    happy: "wave",
+    loving: "heart",
+    curious: "peek",
+    silly: "shimmy",
+    excited: "loop",
+    shy: "peek",
+    focused: "orbit",
+    brave: "boost",
+    dreamy: "orbit",
+    sleepy: "wave",
+    custom: "heart",
+  };
+  return byMood[mood] ?? "wave";
+}
+
 export const ACTIONS = [
-  { key: "wave", label: "Wave", emoji: "👋", duration: 1.2 },
-  { key: "spin", label: "Barrel roll", emoji: "🌀", duration: 1.1 },
-  { key: "flip", label: "Backflip", emoji: "🤸", duration: 1.2 },
-  { key: "loop", label: "Loop-the-loop", emoji: "🎢", duration: 1.8 },
-  { key: "boost", label: "Boost", emoji: "🚀", duration: 1.0 },
-  { key: "peek", label: "Peekaboo", emoji: "🙈", duration: 1.35 },
-  { key: "shimmy", label: "Shimmy", emoji: "✨", duration: 1.25 },
-  { key: "heart", label: "Heart pop", emoji: "💗", duration: 1.2 },
-  { key: "orbit", label: "Tiny orbit", emoji: "🪐", duration: 1.55 },
+  { key: "wave", label: "Greet", emoji: "HI", duration: 1.2 },
+  { key: "spin", label: "Turn", emoji: "360", duration: 1.1 },
+  { key: "flip", label: "Flip", emoji: "UP", duration: 1.2 },
+  { key: "loop", label: "Loop", emoji: "LOOP", duration: 1.8 },
+  { key: "boost", label: "Boost", emoji: "GO", duration: 1.0 },
+  { key: "peek", label: "Peek", emoji: "EYE", duration: 1.35 },
+  { key: "shimmy", label: "Signal", emoji: "LED", duration: 1.25 },
+  { key: "heart", label: "Support", emoji: "OK", duration: 1.2 },
+  { key: "orbit", label: "Orbit", emoji: "ORB", duration: 1.55 },
 ];
 
 export const useMimoStore = create((set) => ({
-  language: "az", mood: "happy", customMood: DEFAULT_CUSTOM_MOOD, action: null, loaded: false, talking: false,
+  language: "az",
+  mood: "happy",
+  customMood: DEFAULT_CUSTOM_MOOD,
+  action: null,
+  clickTarget: null,
+  mimoScreen: null,
+  loaded: false,
+  talking: false,
   setLanguage: (language) => set({ language }),
   setMood: (mood) => set({ mood }),
   setCustomMood: (customMood) => set({ customMood, mood: "custom" }),
-  triggerAction: (action) => set({ action }),
+  triggerAction: (action) => set({ action: { key: action, id: Date.now() } }),
   clearAction: () => set({ action: null }),
+  setClickTarget: (target) => set({ clickTarget: target }),
+  clearClickTarget: () => set({ clickTarget: null }),
+  setMimoScreen: (mimoScreen) => set({ mimoScreen }),
   setLoaded: (loaded) => set({ loaded }),
   setTalking: (talking) => set({ talking }),
 }));

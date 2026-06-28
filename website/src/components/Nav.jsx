@@ -15,10 +15,14 @@ export default function Nav() {
         <span className="nav__name">MIMO</span>
       </a>
       <nav className="nav__links" aria-label={language === "az" ? "Əsas naviqasiya" : "Primary"}>
+        <a href="#scope">{copy.scope}</a>
         <a href="#personality">{copy.personality}</a>
         <a href="#mood-lab">{copy.moodLab}</a>
         <a href="#features">{copy.features}</a>
         <a href="#everywhere">{copy.everywhere}</a>
+        <a href="#camera">{copy.camera}</a>
+        <a href="#companion">{copy.companion}</a>
+        <a href="#controller">{copy.controller}</a>
         <a href="#roadmap">{copy.roadmap}</a>
       </nav>
       <div className="nav__actions">

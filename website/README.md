@@ -17,6 +17,24 @@ npm run build    # production build → dist/
 npm run preview  # preview the build
 ```
 
+## Natural Voice
+Mimo tries to use a neural TTS endpoint first and falls back to the browser voice if the
+endpoint is not available. For the best Azerbaijani voice, run the proxy with an Azure AI
+Speech resource:
+
+```bash
+# terminal 1
+$env:AZURE_SPEECH_REGION="your_region"
+$env:AZURE_SPEECH_KEY="your_key"
+npm run tts
+
+# terminal 2
+npm run dev
+```
+
+The proxy uses `az-AZ-BanuNeural` for Azerbaijani and `en-US-JennyNeural` for English by
+default. Override them with `AZURE_SPEECH_VOICE_AZ` and `AZURE_SPEECH_VOICE_EN`.
+
 ## How it works
 - `public/models/mimo.glb` — the real Mimo 3D scan, **compressed to ~757 KB** (from 15 MB)
   with Blender: Draco mesh compression + 2K WebP textures. Re-generate with
@@ -26,6 +44,12 @@ npm run preview  # preview the build
 - **Mimo flies across the whole site.** A fixed, click-through `<Canvas>` layer
   (`.flight-layer`, `pointer-events: none`) sits above the content, and Mimo flies between
   per-section screen anchors as you scroll.
+- **Camera Studio** lets visitors open their camera, place a 3D Mimo overlay in the frame,
+  capture/share a photo, and export a transparent 512x512 WebP sticker asset.
+- **Sticky Companion** demonstrates Mimo as a draggable, dockable 3D object in the web app.
+  A true out-of-browser overlay requires native companion apps: Tauri/Electron for desktop,
+  App Intents/widgets/Live Activities on iOS, and overlay bubbles or PiP-style surfaces on
+  Android.
 - `src/three/MimoModel.jsx` — the flight pilot. Scroll position blends between `ANCHORS`
   (one per section), with figure-8 hover drift, **banking into turns**, velocity-based
   pitch, cursor look, and one-shot tricks. Forwards a ref so the trail can follow it.
@@ -37,12 +61,14 @@ npm run preview  # preview the build
 - `src/state/useMimoStore.js` — the 5 **moods** (happy, curious, excited, focused, sleepy),
   each mapping to an accent color, light intensity, motion energy, LED/face descriptor and a
   spoken line. Mirrors Mimo's real "every reaction = face + LED + servo + sound" concept.
-- `src/components/` — `Nav`, `MoodControls` (mood pills + action buttons) and `Sections`
+- `src/state/speech.js` — remote neural TTS first, browser `speechSynthesis` fallback second.
+  The local proxy lives in `scripts/tts-proxy.mjs`.
+- `src/components/` — `Nav`, `MoodControls`, `CameraStudio`, and `Sections`
   (Hero, Personality, Features, Everywhere, Roadmap, Waitlist, Footer).
 
 ## Sections
 Hero (live 3D) · Personality lab (mood switcher) · Features · Everywhere
-(Instagram / WhatsApp / AR filters / stickers) · Roadmap (3D → social → iOS & Android →
+(Instagram / WhatsApp / AR filters / stickers) · Camera Studio · Sticky Companion · Roadmap (3D → social → iOS & Android →
 physical robot) · Waitlist.
 
 ## Known follow-ups

@@ -12,6 +12,7 @@ const MODEL_URL = "./models/mimo.glb?v=face1";
    Order MUST match the DOM section order in App.jsx. */
 const ANCHORS = [
   { pos: [2.7, 0.1, 0], scale: 1.0 }, // hero        — text left, Mimo right
+  { pos: [-2.8, 1.5, -0.2], scale: 0.78 }, // scope       — introduce the platform story
   { pos: [-2.9, 0.0, 0.4], scale: 1.0 }, // personality — card right, Mimo left
   { pos: [3.25, 1.75, -0.5], scale: 0.62 }, // mood lab   — sparkle above the mixer
   { pos: [3.2, 1.9, -0.6], scale: 0.66 }, // features  — fly top-right
@@ -26,6 +27,18 @@ function scrollProgress() {
   const doc = document.documentElement;
   const max = Math.max(1, doc.scrollHeight - window.innerHeight);
   return Math.min(1, Math.max(0, window.scrollY / max));
+}
+
+function screenToWorld(clientX, clientY, camera, targetZ = 0) {
+  const ndc = new THREE.Vector3(
+    (clientX / window.innerWidth) * 2 - 1,
+    -(clientY / window.innerHeight) * 2 + 1,
+    0.5,
+  );
+  ndc.unproject(camera);
+  const dir = ndc.sub(camera.position).normalize();
+  const distance = (targetZ - camera.position.z) / dir.z;
+  return camera.position.clone().add(dir.multiplyScalar(distance));
 }
 
 /* The textured Mimo scan, centred + tidied once. */
@@ -66,7 +79,7 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
   const setLoaded = useMimoStore((s) => s.setLoaded);
   const action = useMimoStore((s) => s.action);
   const clearAction = useMimoStore((s) => s.clearAction);
-  const { viewport } = useThree();
+  const { viewport, camera, size } = useThree();
 
   // the live animated face drawn onto the MimoFace plane
   const face = useMemo(() => createMimoFace(), []);
@@ -76,6 +89,11 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
     pos: new THREE.Vector3(2.7, 0.1, 0),
     prev: new THREE.Vector3(2.7, 0.1, 0),
     pointer: new THREE.Vector2(0, 0),
+    clickTarget: null,
+    clickTargetId: null,
+    clickStarted: 0,
+    clickUntil: 0,
+    screenPos: new THREE.Vector3(),
     trick: null,
     trickT: 0,
     trickDur: 0,
@@ -118,9 +136,10 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
   // start a trick when the store action changes
   useEffect(() => {
     if (!action) return;
-    rt.trick = action;
+    const actionKey = typeof action === "string" ? action : action.key;
+    rt.trick = actionKey;
     rt.trickT = 0;
-    rt.trickDur = ACTION_DUR[action] ?? 1.2;
+    rt.trickDur = ACTION_DUR[actionKey] ?? 1.2;
     const id = setTimeout(() => clearAction(), rt.trickDur * 1000);
     return () => clearTimeout(id);
   }, [action, rt, clearAction]);
@@ -132,7 +151,8 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
     const dt = Math.min(delta, 0.05);
     const t = state.clock.elapsedTime;
     // read live store values each frame (avoids stale-closure issues)
-    const { mood: liveMood, customMood } = useMimoStore.getState();
+    const store = useMimoStore.getState();
+    const { mood: liveMood, customMood, clickTarget } = store;
     const m = getMood(liveMood, customMood);
     const energy = 0.5 + m.spin; // excitement multiplier
 
@@ -161,6 +181,34 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
     let goalX = THREE.MathUtils.clamp(tx + driftX, -halfW + 0.6, halfW - 0.6);
     let goalY = THREE.MathUtils.clamp(ty + driftY, -halfH + 0.6, halfH - 0.6);
     let goalZ = tz + driftZ;
+
+    // Direct page clicks temporarily override the scroll anchor and make
+    // Mimo fly to that screen position.
+    if (clickTarget && clickTarget.id !== rt.clickTargetId) {
+      const world = screenToWorld(clickTarget.x, clickTarget.y, camera, 0);
+      rt.clickTarget = new THREE.Vector3(
+        THREE.MathUtils.clamp(world.x, -halfW + 0.62, halfW - 0.62),
+        THREE.MathUtils.clamp(world.y, -halfH + 0.62, halfH - 0.62),
+        0.15,
+      );
+      rt.clickTargetId = clickTarget.id;
+      rt.clickStarted = t;
+      rt.clickUntil = t + 2.65;
+    }
+
+    if (rt.clickTarget) {
+      if (t <= rt.clickUntil) {
+        const settle = Math.min(1, Math.max(0, (t - rt.clickStarted) / 0.45));
+        const hover = Math.sin(t * 4.4) * 0.05 * settle;
+        goalX = rt.clickTarget.x + Math.sin(t * 1.8) * 0.08 * settle;
+        goalY = rt.clickTarget.y + hover;
+        goalZ = rt.clickTarget.z + Math.cos(t * 2.1) * 0.08 * settle;
+      } else {
+        rt.clickTarget = null;
+        rt.clickTargetId = null;
+        store.clearClickTarget();
+      }
+    }
 
     // --- trick path overrides ---
     let extraRoll = 0;
@@ -229,6 +277,15 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
     rt.pos.y += (goalY - rt.pos.y) * follow;
     rt.pos.z += (goalZ - rt.pos.z) * follow;
     g.position.copy(rt.pos);
+
+    rt.screenPos.copy(g.position).project(camera);
+    const screenState = {
+      x: (rt.screenPos.x * 0.5 + 0.5) * size.width,
+      y: (-rt.screenPos.y * 0.5 + 0.5) * size.height,
+      radius: Math.max(64, 92 * g.scale.x),
+      visible: rt.screenPos.z > -1 && rt.screenPos.z < 1,
+    };
+    store.setMimoScreen(screenState);
 
     const vx = rt.pos.x - rt.prev.x;
     const vy = rt.pos.y - rt.prev.y;

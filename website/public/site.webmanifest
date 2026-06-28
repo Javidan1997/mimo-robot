@@ -1,12 +1,33 @@
 {
   "name": "Mimo",
   "short_name": "Mimo",
-  "description": "A tiny expressive AI desk friend with a big heart.",
+  "description": "Interactive AI desk robot with camera AR, sticky companion controls, and device shortcuts.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
   "background_color": "#06080c",
   "theme_color": "#39c2ff",
+  "shortcuts": [
+    {
+      "name": "Sticky Mimo",
+      "short_name": "Sticky",
+      "description": "Open Mimo as a sticky 3D companion.",
+      "url": "/#companion"
+    },
+    {
+      "name": "Camera Studio",
+      "short_name": "Camera",
+      "description": "Open Mimo camera AR capture.",
+      "url": "/#camera"
+    },
+    {
+      "name": "Controller",
+      "short_name": "Control",
+      "description": "Open Mimo quick device commands.",
+      "url": "/#controller"
+    }
+  ],
   "icons": [
     {
       "src": "/favicon.svg",
