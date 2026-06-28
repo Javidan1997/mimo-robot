@@ -2,7 +2,7 @@ import { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, Trail, Billboard, AdaptiveDpr } from "@react-three/drei";
 import * as THREE from "three";
-import { useMimoStore, MOODS } from "../state/useMimoStore.js";
+import { useMimoStore, getMood } from "../state/useMimoStore.js";
 import MimoModel from "./MimoModel.jsx";
 
 /* soft radial sprite used for Mimo's glowing aura */
@@ -23,7 +23,8 @@ function radialTexture() {
 
 function MoodLights() {
   const mood = useMimoStore((s) => s.mood);
-  const m = MOODS[mood] ?? MOODS.happy;
+  const customMood = useMimoStore((s) => s.customMood);
+  const m = getMood(mood, customMood);
   return (
     <>
       <ambientLight intensity={0.6 * m.lightIntensity} />
@@ -37,7 +38,8 @@ function MoodLights() {
 function FlyingMimo() {
   const pilot = useRef();
   const mood = useMimoStore((s) => s.mood);
-  const m = MOODS[mood] ?? MOODS.happy;
+  const customMood = useMimoStore((s) => s.customMood);
+  const m = getMood(mood, customMood);
   const tex = useRef();
   if (!tex.current) tex.current = radialTexture();
 

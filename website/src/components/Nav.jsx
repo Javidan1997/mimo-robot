@@ -15,4 +15,8 @@ export default function Nav() {
         <a href="#roadmap">Roadmap</a>
       </nav>
       <a className="btn btn--ghost nav__cta" href="#waitlist">
-        Join the 
+        Join the waitlist
+      </a>
+    </header>
+  );
+}

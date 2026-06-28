@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import * as THREE from "three";
-import { useMimoStore, MOODS, ACTIONS } from "../state/useMimoStore.js";
+import { useMimoStore, ACTIONS, getMood } from "../state/useMimoStore.js";
 import { createMimoFace } from "./face.js";
 
 // ?v bumped whenever the GLB changes, to defeat browser caching of the model
@@ -13,6 +13,7 @@ const MODEL_URL = "./models/mimo.glb?v=face1";
 const ANCHORS = [
   { pos: [2.7, 0.1, 0], scale: 1.0 }, // hero        — text left, Mimo right
   { pos: [-2.9, 0.0, 0.4], scale: 1.0 }, // personality — card right, Mimo left
+  { pos: [3.25, 1.75, -0.5], scale: 0.62 }, // mood lab   — sparkle above the mixer
   { pos: [3.2, 1.9, -0.6], scale: 0.66 }, // features  — fly top-right
   { pos: [-3.3, 1.9, -0.6], scale: 0.66 }, // everywhere — fly top-left
   { pos: [3.3, 1.7, -0.6], scale: 0.66 }, // roadmap   — fly top-right
@@ -63,7 +64,6 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
   const prepared = useMimoScene();
   const innerRef = useRef(); // tricks (roll/pitch/bob) live here
   const setLoaded = useMimoStore((s) => s.setLoaded);
-  const mood = useMimoStore((s) => s.mood);
   const action = useMimoStore((s) => s.action);
   const clearAction = useMimoStore((s) => s.clearAction);
   const { viewport } = useThree();
@@ -132,8 +132,8 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
     const dt = Math.min(delta, 0.05);
     const t = state.clock.elapsedTime;
     // read live store values each frame (avoids stale-closure issues)
-    const liveMood = useMimoStore.getState().mood;
-    const m = MOODS[liveMood] ?? MOODS.happy;
+    const { mood: liveMood, customMood } = useMimoStore.getState();
+    const m = getMood(liveMood, customMood);
     const energy = 0.5 + m.spin; // excitement multiplier
 
     // --- where should Mimo be? blend between section anchors by scroll ---
@@ -193,6 +193,29 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
           bobBoost = swell * 0.2;
           extraPitch = -swell * 0.25;
           break;
+        case "peek":
+          goalX += Math.sin(tp * Math.PI * 2) * 1.1 * swell;
+          goalY += Math.cos(tp * Math.PI * 2) * 0.45 * swell;
+          extraYaw = Math.sin(tp * Math.PI * 4) * 0.75 * swell;
+          bobBoost = swell * 0.18;
+          break;
+        case "shimmy":
+          goalX += Math.sin(tp * Math.PI * 10) * 0.35 * swell;
+          extraRoll = Math.sin(tp * Math.PI * 12) * 0.35 * swell;
+          extraYaw = Math.sin(tp * Math.PI * 8) * 0.22 * swell;
+          break;
+        case "heart":
+          goalY += swell * 0.7;
+          goalZ += swell * 1.1;
+          extraRoll = Math.sin(tp * Math.PI * 2) * 0.22;
+          bobBoost = swell * 0.36;
+          break;
+        case "orbit":
+          goalX += Math.cos(tp * Math.PI * 2) * 1.1 * swell;
+          goalY += Math.sin(tp * Math.PI * 2) * 0.85 * swell;
+          extraRoll = tp * Math.PI * 2;
+          extraYaw = Math.sin(tp * Math.PI * 2) * 0.45;
+          break;
         default:
           break;
       }
@@ -241,6 +264,7 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
     }
     face.render({
       mood: liveMood,
+      accent: m.accent,
       blink,
       mouthOpen,
       look: {

@@ -86,8 +86,8 @@ export const ROADMAP = [
 ];
 
 export const STATS = [
-  { value: "5", label: "Personality moods" },
+  { value: "10+", label: "Personality moods" },
   { value: "∞", label: "Tiny helpful skills" },
   { value: "3D", label: "Here to play with" },
-  { value: "1", label: "Very sweet friend" },
+  { value: "1", label: "Mood lab to remix" },
 ];
