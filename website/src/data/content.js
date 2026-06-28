@@ -8,8 +8,8 @@ export const CONTENT = {
       },
       {
         icon: "LED",
-        title: "Vizual reaksiya",
-        body: "Üz ifadəsi, LED tonu, hərəkət və səs birlikdə işləyir. Mimo cavabı yalnız mətn kimi deyil, hiss olunan reaksiya kimi təqdim edir.",
+        title: "Reaksiya mühərriki",
+        body: "Hər cavab eyni anda dörd kanalda gəlir: söz, üz ifadəsi, LED rəngi və hərəkət. Mimo cavab vermir — eyni vaxtda danışır, hiss edir, hərəkət edir və icra edir.",
       },
       {
         icon: "EV",
@@ -23,13 +23,13 @@ export const CONTENT = {
       },
       {
         icon: "AI",
-        title: "Fərdiləşən davranış",
-        body: "Seçilən əhvallar, istifadə vərdişləri və üstünlüklər zamanla Mimonun reaksiyalarını daha uyğun və ardıcıl edə bilər.",
+        title: "Yaddaş və fərdiləşmə",
+        body: "Qısamüddətli əhval, gündəlik tapşırıqlar və uzunmüddətli üstünlüklər ayrı yaddaş qatları kimi saxlanır. Mimo vaxt keçdikcə vərdişlərini öyrənir və xarakteri inkişaf edir.",
       },
       {
         icon: "OK",
-        title: "İstifadəçi nəzarəti",
-        body: "Sadə reaksiyalar dərhal işləyir, daha vacib əməliyyatlar isə təsdiqlə həyata keçirilir. Mimo kömək edir, qərar istifadəçidə qalır.",
+        title: "Təhlükəsizlik qatları",
+        body: "Sadə reaksiyalar dərhal işləyir, vacib əməliyyatlar təsdiq istəyir, riskli əmrlər isə standart olaraq bloklanır. API açarları yalnız backend-də qalır.",
       },
     ],
     scaleItems: [
@@ -102,15 +102,69 @@ export const CONTENT = {
       {
         phase: "Gələcək",
         title: "Fiziki masa robotu",
-        body: "Ekran, işıq, səs, hərəkət və ağıllı mühit inteqrasiyaları ilə real masaüstü companion.",
+        body: "ESP32-S3 toxunma ekranlı üz, 6 artikulyasiyalı servo, məsafə + toxunuş + hərəkət sensorları, LED halqa və səs. Masa bazasından tam gövdəyə qədər təkmilləşmə yolu ilə.",
         state: "future",
       },
     ],
     stats: [
-      { value: "4", label: "Məhsul mərhələsi" },
-      { value: "6", label: "Modul sistem qatı" },
-      { value: "3D", label: "Canlı prototip" },
-      { value: "AI", label: "Fərdi davranış" },
+      { value: "6", label: "Artikulyasiyalı servo" },
+      { value: "4", label: "Reaksiya kanalı" },
+      { value: "5", label: "Canlı əhval" },
+      { value: "3D", label: "Real-time model" },
+    ],
+    buildArchitecture: [
+      {
+        marker: "BODY",
+        title: "Mimo Body — ESP32-S3",
+        body: "Yerli kontroller: toxunma ekranlı üz, servolar, sensorlar, LED və səs. Yalnız kiçik əmrləri icra edir və telemetriya qaytarır — OpenAI və ya ağıllı ev brendlərini tanımır.",
+      },
+      {
+        marker: "BRAIN",
+        title: "Mimo Brain — backend",
+        body: "Bütün ağır AI burada: düşüncə, şəxsiyyət, emosiya mühərriki, əmr marşrutlaşdırması, yaddaş və təhlükəsizlik. Tövsiyə olunan stack — FastAPI.",
+      },
+      {
+        marker: "APP",
+        title: "Mobil companion",
+        body: "Səsli pult və idarə tətbiqi: push-to-talk, əhval tənzimləri, rutinlər, ağıllı ev qısayolları və telemetriya. React Native və ya PWA.",
+      },
+      {
+        marker: "DESK",
+        title: "Masaüstü köməkçi",
+        body: "Developer və kompüter köməkçisi: layihə qısayolları, kodlama rejimi, xatırlatmalar və icazə verilmiş təhlükəsiz masaüstü əməliyyatlar. Tauri və ya Electron.",
+      },
+      {
+        marker: "SKILL",
+        title: "Plugin / skill qatı",
+        body: "Hər funksiya modul skill kimi qurulur — TV, kondisioner, Home Assistant, taymerlər, kodlama köməkçisi, oyunlar. Monolit yox, genişlənən sistem.",
+      },
+    ],
+    buildHardware: [
+      {
+        marker: "MCU",
+        title: "Kontroller və üz",
+        body: "ESP32-S3 2.8\" kapasitiv toxunma ekranı (8MB PSRAM, 16MB flash) üz interfeysini idarə edir və bütün modullarla danışır.",
+      },
+      {
+        marker: "SRV",
+        title: "Hərəkət",
+        body: "PCA9685 16 kanallı sürücü + 6× MG90S 180° metal dişli servo: boyun, baş və qollar üçün dəqiq mövqe.",
+      },
+      {
+        marker: "SNS",
+        title: "Sensorlar",
+        body: "VL53L0X məsafə, TTP223 kapasitiv toxunuş və MPU6050 gyro/accel — yaxınlıq və hərəkət reaksiyaları üçün.",
+      },
+      {
+        marker: "I/O",
+        title: "İşıq və səs",
+        body: "WS2812B LED halqa emosiya işığı üçün, DFPlayer Mini + 3W dinamik səs və danışıq üçün.",
+      },
+      {
+        marker: "PWR",
+        title: "Enerji və təhlükəsizlik",
+        body: "12V adapter → 5V 10A buck çeviricisi servo şinini qidalandırır. Paylaşılan torpaq; 12V heç vaxt birbaşa servoya verilmir.",
+      },
     ],
   },
   en: {
@@ -122,8 +176,8 @@ export const CONTENT = {
       },
       {
         icon: "LED",
-        title: "Visible reaction",
-        body: "Face, LED tone, movement, and sound work together so a response feels visible, not just textual.",
+        title: "Reaction engine",
+        body: "Every answer lands on four channels at once: speech, expression, LED color, and motion. Mimo doesn't just reply — it answers, feels, moves, and acts together.",
       },
       {
         icon: "HOME",
@@ -137,13 +191,13 @@ export const CONTENT = {
       },
       {
         icon: "AI",
-        title: "Personalized behavior",
-        body: "Selected moods, usage habits, and preferences can make Mimo's reactions more relevant and consistent over time.",
+        title: "Memory and personalization",
+        body: "Short-term mood, daily tasks, and long-term preferences live as separate memory layers. Mimo learns your habits over time, so its character grows instead of resetting.",
       },
       {
         icon: "OK",
-        title: "User control",
-        body: "Simple reactions happen quickly, while important actions can require confirmation. Mimo assists, but the user stays in control.",
+        title: "Safety tiers",
+        body: "Simple reactions run instantly, important actions ask for confirmation, and risky commands are blocked by default. API keys stay in the backend only.",
       },
     ],
     scaleItems: [
@@ -216,15 +270,69 @@ export const CONTENT = {
       {
         phase: "Future",
         title: "Physical desk robot",
-        body: "A real desktop companion with screen, light, voice, motion, and smart environment integrations.",
+        body: "An ESP32-S3 touchscreen face, 6 articulated servos, distance + touch + motion sensors, an LED ring, and sound — with an upgrade path from desk base to a full body.",
         state: "future",
       },
     ],
     stats: [
-      { value: "4", label: "Product stages" },
-      { value: "6", label: "System modules" },
-      { value: "3D", label: "Live prototype" },
-      { value: "AI", label: "Adaptive behavior" },
+      { value: "6", label: "Articulated servos" },
+      { value: "4", label: "Reaction channels" },
+      { value: "5", label: "Live moods" },
+      { value: "3D", label: "Real-time model" },
+    ],
+    buildArchitecture: [
+      {
+        marker: "BODY",
+        title: "Mimo Body — ESP32-S3",
+        body: "The local controller: touchscreen face, servos, sensors, LED, and sound. It only runs small commands and returns telemetry — it knows nothing about OpenAI or smart-home brands.",
+      },
+      {
+        marker: "BRAIN",
+        title: "Mimo Brain — backend",
+        body: "All the heavy AI lives here: reasoning, personality, the emotion engine, command routing, memory, and the safety guard. Recommended stack: FastAPI.",
+      },
+      {
+        marker: "APP",
+        title: "Mobile companion",
+        body: "A voice remote and control app: push-to-talk, mood settings, routines, smart-home shortcuts, and telemetry. React Native or PWA.",
+      },
+      {
+        marker: "DESK",
+        title: "Desktop helper",
+        body: "A developer and computer helper: project shortcuts, coding mode, reminders, and allow-listed safe desktop actions. Tauri or Electron.",
+      },
+      {
+        marker: "SKILL",
+        title: "Plugin / skill layer",
+        body: "Every feature is a modular skill — TV, AC, Home Assistant, timers, coding helper, games. A system that grows, not a hardcoded monolith.",
+      },
+    ],
+    buildHardware: [
+      {
+        marker: "MCU",
+        title: "Controller & face",
+        body: "An ESP32-S3 2.8\" capacitive touchscreen (8MB PSRAM, 16MB flash) drives the face UI and talks to every module.",
+      },
+      {
+        marker: "SRV",
+        title: "Motion",
+        body: "A PCA9685 16-channel driver plus 6× MG90S 180° metal-gear servos give precise positioning for neck, head, and arms.",
+      },
+      {
+        marker: "SNS",
+        title: "Sensing",
+        body: "VL53L0X distance, TTP223 capacitive touch, and an MPU6050 gyro/accel power proximity and motion reactions.",
+      },
+      {
+        marker: "I/O",
+        title: "Light & sound",
+        body: "A WS2812B LED ring for emotion glow, plus a DFPlayer Mini and 3W speaker for voice and sound.",
+      },
+      {
+        marker: "PWR",
+        title: "Power & safety",
+        body: "A 12V adapter → 5V 10A buck converter feeds the servo rail. Shared ground, and never 12V straight to the servos.",
+      },
     ],
   },
 };

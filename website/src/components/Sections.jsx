@@ -446,6 +446,62 @@ export function Everywhere() {
   );
 }
 
+/* ----------------------------------------------------------------- Build */
+const PROTOCOL_SAMPLE = `{
+  "request_id": "cmd-001",
+  "mood": "happy",
+  "face": "smile_big",
+  "actions": [
+    { "type": "servo", "name": "wave_left", "speed": 0.6 },
+    { "type": "led",   "name": "blue_pulse", "duration_ms": 1500 },
+    { "type": "sound", "track": "01/001.mp3" }
+  ]
+}`;
+
+export function BuildSection() {
+  const { copy, content } = useLocale();
+  const text = copy.build;
+  return (
+    <section className="build section" id="build">
+      <div className="section__head">
+        <SectionEyebrow>{text.eyebrow}</SectionEyebrow>
+        <h2 className="section__title">{text.title}</h2>
+        <p className="section__lead">{text.lead}</p>
+      </div>
+
+      <h3 className="build__subhead">{text.architectureTitle}</h3>
+      <div className="build-grid">
+        {content.buildArchitecture.map((item) => (
+          <article className="card glass build-cell" key={item.title}>
+            <span className="card__icon" aria-hidden="true">{item.marker}</span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <h3 className="build__subhead">{text.hardwareTitle}</h3>
+      <div className="build-grid">
+        {content.buildHardware.map((item) => (
+          <article className="card glass build-cell" key={item.title}>
+            <span className="card__icon" aria-hidden="true">{item.marker}</span>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="build-protocol glass">
+        <h3 className="build-protocol__title">{text.protocolTitle}</h3>
+        <pre className="build-protocol__code">
+          <code>{PROTOCOL_SAMPLE}</code>
+        </pre>
+        <p className="build-protocol__note">{text.protocolNote}</p>
+      </div>
+    </section>
+  );
+}
+
 /* --------------------------------------------------------------- Roadmap */
 export function Roadmap() {
   const { copy, content } = useLocale();

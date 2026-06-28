@@ -905,6 +905,64 @@ button {
   border: 1px solid rgba(57, 194, 255, 0.25);
 }
 
+/* how it's built */
+.build__subhead {
+  margin: 38px 0 18px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.build__subhead:first-of-type {
+  margin-top: 8px;
+}
+
+.build-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.build-cell .card__icon {
+  width: auto;
+  min-width: 50px;
+  padding: 0 12px;
+  letter-spacing: 0.09em;
+}
+
+.build-protocol {
+  margin-top: 40px;
+  padding: 28px;
+}
+
+.build-protocol__title {
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+.build-protocol__code {
+  margin: 0;
+  padding: 20px 22px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(4, 6, 10, 0.72);
+  overflow-x: auto;
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #c9defb;
+}
+
+.build-protocol__note {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+
 /* stats */
 .stats {
   display: grid;

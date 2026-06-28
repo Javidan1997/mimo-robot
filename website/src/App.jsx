@@ -8,6 +8,7 @@ import {
   MoodLab,
   Features,
   Everywhere,
+  BuildSection,
   Roadmap,
   Waitlist,
   Footer,
@@ -99,6 +100,7 @@ export default function App() {
         <Features />
         <Everywhere />
         <CameraStudio copy={getCopy(language).camera} />
+        <BuildSection />
         <Roadmap />
         <Waitlist />
       </main>
