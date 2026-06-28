@@ -1,0 +1,158 @@
+import * as THREE from "three";
+
+/**
+ * Mimo's live face, drawn on a 2D canvas and mapped onto the `MimoFace`
+ * plane. Each mood gets distinct eyes + mouth; it blinks, tracks the cursor
+ * with its pupils, and flaps its mouth while talking.
+ */
+const W = 512;
+const H = 356;
+
+// Per-mood face design. openY = eye height factor, smile = mouth curve
+// (+up / -down), browTilt rotates the eyes for attitude.
+const FACES = {
+  happy: { eye: "round", openY: 0.95, smile: 0.9, browTilt: 0, mouth: "smile" },
+  curious: { eye: "round", openY: 1.05, smile: 0.2, browTilt: 0.12, mouth: "o", asym: 0.18 },
+  excited: { eye: "star", openY: 1.2, smile: 1.0, browTilt: 0, mouth: "grin" },
+  focused: { eye: "half", openY: 0.42, smile: 0.0, browTilt: -0.05, mouth: "line" },
+  sleepy: { eye: "sleepy", openY: 0.28, smile: -0.25, browTilt: 0.0, mouth: "small" },
+};
+
+export function createMimoFace() {
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d");
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 4;
+  // The Blender UVs map the plane 0..1; flip so the face sits upright.
+  texture.flipY = true;
+  texture.center.set(0.5, 0.5);
+  texture.rotation = Math.PI; // orient to the screen's "up"
+
+  function eye(cx, cy, rx, ry, look, design, glow) {
+    ctx.save();
+    ctx.translate(cx + look.x * 14, cy + look.y * 10);
+    ctx.rotate(design.browTilt * (cx < W / 2 ? -1 : 1));
+    ctx.shadowColor = glow;
+    ctx.shadowBlur = 26;
+    ctx.fillStyle = "#d8f6ff";
+
+    if (design.eye === "half" || design.eye === "sleepy") {
+      // narrowed / sleepy: a thick curved bar
+      ctx.lineWidth = ry * 1.5;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = "#d8f6ff";
+      ctx.beginPath();
+      const dip = design.eye === "sleepy" ? ry * 0.9 : 0;
+      ctx.moveTo(-rx, 0);
+      ctx.quadraticCurveTo(0, dip, rx, 0);
+      ctx.stroke();
+    } else if (design.eye === "star") {
+      // excited: rounded eye + sparkle
+      roundedEye(ctx, rx, ry);
+      ctx.fill();
+      ctx.shadowBlur = 14;
+      ctx.fillStyle = "#ffffff";
+      sparkle(ctx, -rx * 0.3, -ry * 0.35, ry * 0.5);
+    } else {
+      roundedEye(ctx, rx, ry);
+      ctx.fill();
+      // pupil glint
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = "rgba(8,30,46,0.55)";
+      ctx.beginPath();
+      ctx.ellipse(look.x * 6, look.y * 5, rx * 0.34, ry * 0.4, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.arc(-rx * 0.25, -ry * 0.3, rx * 0.16, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function roundedEye(c, rx, ry) {
+    c.beginPath();
+    c.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+  }
+
+  function sparkle(c, x, y, r) {
+    c.beginPath();
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      const rr = i % 2 === 0 ? r : r * 0.4;
+      c[i ? "lineTo" : "moveTo"](x + Math.cos(a) * rr, y + Math.sin(a) * rr);
+    }
+    c.closePath();
+    c.fill();
+  }
+
+  function mouth(design, openAmt, glow) {
+    const my = H * 0.7;
+    const mw = W * 0.16;
+    ctx.save();
+    ctx.shadowColor = glow;
+    ctx.shadowBlur = 20;
+    ctx.strokeStyle = "#d8f6ff";
+    ctx.fillStyle = "#d8f6ff";
+    ctx.lineWidth = 9;
+    ctx.lineCap = "round";
+
+    const open = openAmt * 26; // talking opens the mouth
+    if (design.mouth === "o" || open > 6) {
+      ctx.beginPath();
+      ctx.ellipse(W / 2, my, mw * 0.4, 7 + open, 0, 0, Math.PI * 2);
+      open > 6 ? ctx.fill() : ctx.stroke();
+    } else if (design.mouth === "grin") {
+      ctx.beginPath();
+      ctx.moveTo(W / 2 - mw, my - 4);
+      ctx.quadraticCurveTo(W / 2, my + 26 + open, W / 2 + mw, my - 4);
+      ctx.quadraticCurveTo(W / 2, my + 8, W / 2 - mw, my - 4);
+      ctx.fill();
+    } else if (design.mouth === "line" || design.mouth === "small") {
+      const ww = design.mouth === "small" ? mw * 0.45 : mw * 0.7;
+      ctx.beginPath();
+      ctx.moveTo(W / 2 - ww, my);
+      ctx.lineTo(W / 2 + ww, my);
+      ctx.stroke();
+    } else {
+      // smile arc
+      ctx.beginPath();
+      ctx.moveTo(W / 2 - mw, my - design.smile * 6);
+      ctx.quadraticCurveTo(W / 2, my + design.smile * 26 + open, W / 2 + mw, my - design.smile * 6);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function render({ mood, blink = 1, look = { x: 0, y: 0 }, mouthOpen = 0 }) {
+    if (typeof window !== "undefined") window.__faceMood = mood; // debug
+    const d = FACES[mood] ?? FACES.happy;
+    const glow = MOOD_GLOW[mood] ?? "#39c2ff";
+    ctx.clearRect(0, 0, W, H);
+
+    const baseRx = W * 0.1;
+    const baseRy = H * 0.17 * d.openY * blink;
+    const cy = H * 0.4;
+    const lx = W * 0.34;
+    const rx = W * 0.66;
+    const asym = d.asym ?? 0;
+    eye(lx, cy, baseRx, baseRy * (1 + asym), look, d, glow);
+    eye(rx, cy, baseRx, baseRy * (1 - asym), look, d, glow);
+    mouth(d, mouthOpen, glow);
+
+    texture.needsUpdate = true;
+  }
+
+  return { texture, render, canvas };
+}
+
+const MOOD_GLOW = {
+  happy: "#39c2ff",
+  curious: "#22d3ee",
+  excited: "#c084fc",
+  focused: "#38bdf8",
+  sleepy: "#7c93b5",
+};
