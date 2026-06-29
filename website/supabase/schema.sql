@@ -84,3 +84,14 @@ create policy "auth read waitlist"
 drop policy if exists "auth read events" on public.events;
 create policy "auth read events"
   on public.events for select to authenticated using (true);
+
+-- Data API grants. RLS still controls which rows each role can touch.
+grant usage on schema public to anon, authenticated;
+
+grant insert on public.contact_submissions to anon;
+grant insert on public.waitlist to anon;
+grant insert on public.events to anon;
+
+grant select on public.contact_submissions to authenticated;
+grant select on public.waitlist to authenticated;
+grant select on public.events to authenticated;
