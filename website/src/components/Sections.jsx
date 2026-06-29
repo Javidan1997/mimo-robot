@@ -1,12 +1,27 @@
-﻿import { useEffect, useMemo, useState } from "react";
-import { useMimoStore, getMood } from "../state/useMimoStore.js";
-import { MoodPills, ActionButtons, TalkButton } from "./MoodControls.jsx";
-import { getContent } from "../data/content.js";
-import { getCopy } from "../data/i18n.js";
-import { speak } from "../state/speech.js";
-import SvgIcon from "./SvgIcon.jsx";
-import { submitContact, joinWaitlist } from "../lib/submissions.js";
-import { trackEvent } from "../lib/tracking.js";
+﻿import {
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+
+import { getContent } from '../data/content.js';
+import { getCopy } from '../data/i18n.js';
+import {
+  joinWaitlist,
+  submitContact,
+} from '../lib/submissions.js';
+import { trackEvent } from '../lib/tracking.js';
+import { speak } from '../state/speech.js';
+import {
+  getMood,
+  useMimoStore,
+} from '../state/useMimoStore.js';
+import {
+  ActionButtons,
+  MoodPills,
+  TalkButton,
+} from './MoodControls.jsx';
+import SvgIcon from './SvgIcon.jsx';
 
 function useLocale() {
   const language = useMimoStore((s) => s.language);
@@ -47,9 +62,7 @@ export function Hero() {
         </div>
         <div className="hero__actions">
           <TalkButton />
-          <ActionButtons />
         </div>
-        <p className="hero__hint">{hero.hint}</p>
       </div>
     </section>
   );
@@ -61,7 +74,7 @@ export function ProjectScope() {
   const text = copy.scope;
 
   return (
-    <section className="scope section" id="scope">
+    <section className="scope section section--alt" id="scope">
       <div className="scope__intro">
         <div>
           <SectionEyebrow>{text.eyebrow}</SectionEyebrow>
@@ -106,13 +119,17 @@ export function Personality() {
           </div>
           <div className="mood-readout__meta">
             <span className="mood-readout__name">{m.label}</span>
-            <p className="mood-readout__line">“{m.line}”</p>
+            <p className="mood-readout__line">"{m.line}"</p>
             <div className="mood-readout__tags">
               <span>{text.led} · {m.led}</span>
               <span>{text.face} · {m.face}</span>
             </div>
           </div>
         </div>
+        <div className="personality__actions">
+          <ActionButtons />
+        </div>
+        <p className="personality__hint">{copy.hero.hint}</p>
       </div>
     </section>
   );
@@ -345,7 +362,7 @@ export function MoodLab() {
           <div>
             <SectionEyebrow>{lab.liveCustomMood}</SectionEyebrow>
             <h3>{draft.name || lab.customFallback}</h3>
-            <p className="lab-preview__line">“{draft.line || lab.lineFallback}”</p>
+            <p className="lab-preview__line">“{draft.line || lab.lineFallback}"</p>
           </div>
           <div className="lab-readout">
             <span>{copy.personality.led} · {draft.led}</span>
@@ -390,7 +407,7 @@ export function Features() {
   const { copy, content } = useLocale();
   const head = copy.featuresHead;
   return (
-    <section className="features section" id="features">
+    <section className="features section section--alt" id="features">
       <div className="section__head">
         <SectionEyebrow>{head.eyebrow}</SectionEyebrow>
         <h2 className="section__title">{head.title}</h2>
@@ -509,7 +526,7 @@ export function Roadmap() {
   const { copy, content } = useLocale();
   const text = copy.roadmap;
   return (
-    <section className="roadmap section" id="roadmap">
+    <section className="roadmap section section--alt" id="roadmap">
       <div className="section__head">
         <SectionEyebrow>{text.eyebrow}</SectionEyebrow>
         <h2 className="section__title">{text.title}</h2>
@@ -699,6 +716,19 @@ export function Footer() {
           <span className="nav__logo-ring" />
         </span>
         <span className="nav__name">MIMO</span>
+      </div>
+      <div className="footer__founder">
+        <p>
+          Built by{" "}
+          <a
+            href="https://linkedin.com/in/cavidanab"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Javidan Abdullayev
+          </a>
+        </p>
+        <p className="footer__founder-role">Data &amp; Software Engineer · Baku, Azerbaijan</p>
       </div>
       <p className="footer__tag">{copy.footer.tag}</p>
       <p className="footer__legal">© {new Date().getFullYear()} Mimo. {copy.footer.legal}</p>
