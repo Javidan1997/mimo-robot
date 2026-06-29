@@ -35,6 +35,12 @@ jobs:
       - name: Build
         working-directory: website
         run: npm run build
+        env:
+          # Browser-safe Supabase values (anon key is gated by Row-Level Security).
+          # Set these in repo Settings → Secrets and variables → Actions → Variables.
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+          VITE_ADMIN_EMAIL_DOMAIN: ${{ vars.VITE_ADMIN_EMAIL_DOMAIN }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,6 +1,7 @@
 import { useMimoStore, MOOD_ORDER, ACTIONS, getAction, getMood } from "../state/useMimoStore.js";
 import { speak } from "../state/speech.js";
 import SvgIcon from "./SvgIcon.jsx";
+import { trackEvent } from "../lib/tracking.js";
 
 export function MoodPills({ compact = false }) {
   const language = useMimoStore((s) => s.language);
@@ -13,7 +14,7 @@ export function MoodPills({ compact = false }) {
         const m = getMood(key, customMood, language);
         const active = key === mood;
         return (
-          <button key={key} type="button" className={`mood-pill${active ? " is-active" : ""}`} style={active ? { "--pill": m.accent } : undefined} onClick={() => { setMood(key); speak(m.line, language); }} aria-pressed={active}>
+          <button key={key} type="button" className={`mood-pill${active ? " is-active" : ""}`} style={active ? { "--pill": m.accent } : undefined} onClick={() => { setMood(key); speak(m.line, language); trackEvent("mood_select", { mood: key }); }} aria-pressed={active}>
             <SvgIcon name={m.icon} className="mood-pill__icon" />
             {m.label}
           </button>

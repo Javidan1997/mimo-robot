@@ -23,6 +23,7 @@ export default function Nav() {
         <a href="#camera">{copy.camera}</a>
         <a href="#build">{copy.build}</a>
         <a href="#roadmap">{copy.roadmap}</a>
+        <a href="#contact">{copy.contact}</a>
       </nav>
       <div className="nav__actions">
         <div className="language-toggle" aria-label={language === "az" ? "Dil seçimi" : "Language selector"}>

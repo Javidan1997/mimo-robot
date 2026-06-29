@@ -1,4 +1,4 @@
-﻿import { Suspense, lazy, useEffect } from "react";
+﻿import { Suspense, lazy, useEffect, useState } from "react";
 import Nav from "./components/Nav.jsx";
 import CameraStudio from "./components/CameraStudio.jsx";
 import {
@@ -10,14 +10,30 @@ import {
   Everywhere,
   BuildSection,
   Roadmap,
+  Contact,
   Waitlist,
   Footer,
 } from "./components/Sections.jsx";
 import { getMoodClickAction, useMimoStore } from "./state/useMimoStore.js";
 import { getCopy } from "./data/i18n.js";
+import { trackPageView } from "./lib/tracking.js";
 
 // Keep the heavy 3D bundle out of the critical path.
 const MimoStage = lazy(() => import("./three/MimoStage.jsx"));
+// Admin panel is its own route (#admin) — kept out of the main bundle.
+const AdminPanel = lazy(() => import("./components/AdminPanel.jsx"));
+
+function useIsAdminRoute() {
+  const [isAdmin, setIsAdmin] = useState(
+    typeof window !== "undefined" && window.location.hash.replace(/^#\/?/, "") === "admin",
+  );
+  useEffect(() => {
+    const onHash = () => setIsAdmin(window.location.hash.replace(/^#\/?/, "") === "admin");
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+  return isAdmin;
+}
 
 function isInteractiveElement(target) {
   return Boolean(
@@ -63,6 +79,11 @@ function MimoClickController() {
 
 export default function App() {
   const language = useMimoStore((s) => s.language);
+  const isAdmin = useIsAdminRoute();
+
+  useEffect(() => {
+    if (!isAdmin) trackPageView();
+  }, [isAdmin]);
 
   useEffect(() => {
     const meta = getCopy(language).meta;
@@ -75,6 +96,14 @@ export default function App() {
     document.querySelector('meta[property="og:description"]')?.setAttribute("content", meta.socialDescription);
     document.querySelector('meta[property="og:locale"]')?.setAttribute("content", meta.locale);
   }, [language]);
+
+  if (isAdmin) {
+    return (
+      <Suspense fallback={<p className="admin-loading">Loading…</p>}>
+        <AdminPanel />
+      </Suspense>
+    );
+  }
 
   return (
     <div className="app">
@@ -102,6 +131,7 @@ export default function App() {
         <CameraStudio copy={getCopy(language).camera} />
         <BuildSection />
         <Roadmap />
+        <Contact />
         <Waitlist />
       </main>
 

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useMimoStore } from "../state/useMimoStore.js";
 import CameraAR, { AR_STRINGS } from "./CameraAR.jsx";
+import { trackEvent } from "../lib/tracking.js";
 
 const DEFAULT_COPY = {
   eyebrow: "Camera AR",
@@ -55,7 +56,7 @@ export default function CameraStudio({ copy }) {
           <h3>{ar.title}</h3>
           <p>{text.nativeBody}</p>
           <div className="ar-card__actions">
-            <button className="btn btn--primary" type="button" onClick={() => setArOpen(true)}>
+            <button className="btn btn--primary" type="button" onClick={() => { setArOpen(true); trackEvent("camera_open", { mode: "ar" }); }}>
               {ar.launch}
             </button>
           </div>

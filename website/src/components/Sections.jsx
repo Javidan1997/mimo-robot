@@ -5,6 +5,8 @@ import { getContent } from "../data/content.js";
 import { getCopy } from "../data/i18n.js";
 import { speak } from "../state/speech.js";
 import SvgIcon from "./SvgIcon.jsx";
+import { submitContact, joinWaitlist } from "../lib/submissions.js";
+import { trackEvent } from "../lib/tracking.js";
 
 function useLocale() {
   const language = useMimoStore((s) => s.language);
@@ -36,10 +38,10 @@ export function Hero() {
         </h1>
         <p className="hero__lead">{hero.lead}</p>
         <div className="hero__cta">
-          <a className="btn btn--primary" href="#personality">
+          <a className="btn btn--primary" href="#personality" onClick={() => trackEvent("cta_click", { cta: "primary" })}>
             {hero.primary}
           </a>
-          <a className="btn btn--ghost" href="#everywhere">
+          <a className="btn btn--ghost" href="#everywhere" onClick={() => trackEvent("cta_click", { cta: "secondary" })}>
             {hero.secondary}
           </a>
         </div>
@@ -527,39 +529,105 @@ export function Roadmap() {
   );
 }
 
+/* --------------------------------------------------------------- Contact */
+export function Contact() {
+  const { copy } = useLocale();
+  const text = copy.contact;
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("idle"); // idle | sending | done | error | not_configured
+  const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.message) return;
+    setStatus("sending");
+    const { ok, error } = await submitContact(form);
+    if (ok) {
+      setStatus("done");
+      setForm({ name: "", email: "", message: "" });
+    } else {
+      setStatus(error === "not_configured" ? "not_configured" : "error");
+    }
+  };
+
+  return (
+    <section className="contact section" id="contact">
+      <div className="section__head">
+        <SectionEyebrow>{text.eyebrow}</SectionEyebrow>
+        <h2 className="section__title">{text.title}</h2>
+        <p className="section__lead">{text.lead}</p>
+      </div>
+      <form className="contact__form glass" onSubmit={submit}>
+        <div className="contact__row">
+          <label className="contact__field">
+            {text.name}
+            <input value={form.name} onChange={update("name")} placeholder={text.namePlaceholder} required maxLength={80} />
+          </label>
+          <label className="contact__field">
+            {text.email}
+            <input type="email" value={form.email} onChange={update("email")} placeholder={text.emailPlaceholder} required maxLength={120} />
+          </label>
+        </div>
+        <label className="contact__field">
+          {text.message}
+          <textarea value={form.message} onChange={update("message")} placeholder={text.messagePlaceholder} rows={4} required maxLength={1000} />
+        </label>
+        <div className="contact__actions">
+          <button className="btn btn--primary" type="submit" disabled={status === "sending"}>
+            {status === "sending" ? text.sending : text.submit}
+          </button>
+          {status === "done" && <span className="contact__msg contact__msg--ok">{text.done}</span>}
+          {status === "error" && <span className="contact__msg contact__msg--err">{text.error}</span>}
+          {status === "not_configured" && <span className="contact__msg contact__msg--err">{text.notConfigured}</span>}
+        </div>
+      </form>
+    </section>
+  );
+}
+
 /* -------------------------------------------------------------- Waitlist */
 export function Waitlist() {
   const { copy } = useLocale();
   const text = copy.waitlist;
   const [email, setEmail] = useState("");
-  const [done, setDone] = useState(false);
-  const submit = (e) => {
+  const [status, setStatus] = useState("idle"); // idle | sending | done | error | not_configured
+  const submit = async (e) => {
     e.preventDefault();
     if (!email) return;
-    // Front-end only for now — wire to a real backend/CRM later.
-    setDone(true);
+    setStatus("sending");
+    const { ok, error } = await joinWaitlist({ email });
+    if (ok) {
+      setStatus("done");
+      setEmail("");
+    } else {
+      setStatus(error === "not_configured" ? "not_configured" : "error");
+    }
   };
   return (
     <section className="waitlist section" id="waitlist">
       <div className="waitlist__card glass">
         <h2 className="section__title">{text.title}</h2>
         <p className="section__lead">{text.lead}</p>
-        {done ? (
+        {status === "done" ? (
           <p className="waitlist__done">{text.done}</p>
         ) : (
-          <form className="waitlist__form" onSubmit={submit}>
-            <input
-              type="email"
-              required
-              placeholder={text.placeholder}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              aria-label={text.emailLabel}
-            />
-            <button className="btn btn--primary" type="submit">
-              {text.submit}
-            </button>
-          </form>
+          <>
+            <form className="waitlist__form" onSubmit={submit}>
+              <input
+                type="email"
+                required
+                placeholder={text.placeholder}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                aria-label={text.emailLabel}
+              />
+              <button className="btn btn--primary" type="submit" disabled={status === "sending"}>
+                {text.submit}
+              </button>
+            </form>
+            {status === "error" && <p className="waitlist__error">{text.error}</p>}
+            {status === "not_configured" && <p className="waitlist__error">{text.notConfigured}</p>}
+          </>
         )}
       </div>
     </section>
