@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: mimo-tts-proxy
+    runtime: docker
+    plan: free
+    dockerfilePath: website/Dockerfile
+    dockerContext: website
+    healthCheckPath: /health
+    envVars:
+      - key: TTS_PROVIDER
+        value: edge
+      - key: EDGE_TTS_VOICE_AZ
+        value: az-AZ-BabekNeural
+      - key: EDGE_TTS_VOICE_EN
+        value: en-US-AriaNeural
+      - key: EDGE_TTS_RATE_AZ
+        value: "-4%"
+      - key: EDGE_TTS_RATE_EN
+        value: "-3%"

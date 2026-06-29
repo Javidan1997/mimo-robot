@@ -40,6 +40,21 @@ voice by ID, so use a voice from your own **My Voices** list. Azure is still sup
 `TTS_PROVIDER=azure`; override its voices with `AZURE_SPEECH_VOICE_AZ` and
 `AZURE_SPEECH_VOICE_EN`.
 
+## Production Voice
+GitHub Pages can serve the static site, but it cannot run the Node/Python TTS proxy. Deploy
+the proxy as a Render Blueprint from the repository root `render.yaml`, then set this GitHub
+repository variable before rebuilding Pages:
+
+```bash
+VITE_MIMO_TTS_ENDPOINT=https://your-render-service.onrender.com/api/tts
+```
+
+The Render service exposes:
+- `GET /health` - health check
+- `POST /api/tts` - returns `audio/mpeg`
+
+The included Blueprint defaults to Edge TTS with `az-AZ-BabekNeural` for Azerbaijani.
+
 ## How it works
 - `public/models/mimo.glb` - the real Mimo 3D scan, **compressed to ~757 KB** (from 15 MB)
   with Blender: Draco mesh compression + 2K WebP textures. Re-generate with

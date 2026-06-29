@@ -29,7 +29,8 @@ function loadEnvFiles() {
 }
 loadEnvFiles();
 
-const PORT = Number(process.env.TTS_PORT || 8787);
+const PORT = Number(process.env.PORT || process.env.TTS_PORT || 8787);
+const HOST = process.env.HOST || (process.env.RENDER ? "0.0.0.0" : "127.0.0.1");
 const PROVIDER = (process.env.TTS_PROVIDER || (process.env.ELEVENLABS_API_KEY ? "elevenlabs" : "azure")).toLowerCase();
 const REGION = process.env.AZURE_SPEECH_REGION;
 const KEY = process.env.AZURE_SPEECH_KEY;
@@ -266,6 +267,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (req.method === "GET" && (req.url === "/" || req.url === "/health")) {
+    sendJson(res, 200, { ok: true, provider: PROVIDER });
+    return;
+  }
+
   if (req.method !== "POST" || req.url !== "/api/tts") {
     sendJson(res, 404, { error: "Not found" });
     return;
@@ -310,8 +316,8 @@ server.on("error", (error) => {
   process.exit(1);
 });
 
-server.listen(PORT, "127.0.0.1", () => {
-  console.log(`Mimo TTS proxy listening on http://127.0.0.1:${PORT}/api/tts`);
+server.listen(PORT, HOST, () => {
+  console.log(`Mimo TTS proxy listening on http://${HOST}:${PORT}/api/tts`);
   console.log(`Mimo TTS provider: ${PROVIDER}`);
   if (PROVIDER === "azure" && (!REGION || !KEY)) {
     console.warn("Set AZURE_SPEECH_REGION and AZURE_SPEECH_KEY to enable neural voice output.");
