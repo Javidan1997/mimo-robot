@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://mimorobot.online/</loc>
-    <lastmod>2026-06-28</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://mimorobot.online/social/og-cover.png</image:loc>
+      <image:title>Mimo desktop AI companion robot platform</image:title>
+      <image:caption>Mimo — an AI companion robot platform with voice, expression, LED emotion glow, and motion in one character.</image:caption>
+    </image:image>
   </url>
 </urlset>

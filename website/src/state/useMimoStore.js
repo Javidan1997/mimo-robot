@@ -65,7 +65,7 @@ export const DEFAULT_CUSTOM_MOOD = {
 
 export const MOOD_ORDER = ["happy", "loving", "curious", "silly", "excited", "shy", "focused", "brave", "dreamy", "sleepy", "custom"];
 
-export function getMood(key, customMood = DEFAULT_CUSTOM_MOOD, language = "az") {
+export function getMood(key, customMood = DEFAULT_CUSTOM_MOOD, language = "en") {
   if (key === "custom") return { ...customMood, ...(customMood.copy?.[language] ?? {}) };
   const base = MOODS[key] ?? MOODS.happy;
   return { ...base, ...(MOOD_COPY[language]?.[key] ?? MOOD_COPY.en?.[key] ?? {}) };
@@ -76,7 +76,7 @@ const ACTION_COPY = {
   az: { wave: "Salam ver", spin: "Fırlan", flip: "Salto", loop: "Dairə çək", boost: "Sürətlən", peek: "Görün", shimmy: "Siqnal ver", heart: "Dəstək ver", orbit: "Orbit" },
 };
 
-export function getAction(action, language = "az") {
+export function getAction(action, language = "en") {
   return { ...action, label: ACTION_COPY[language]?.[action.key] ?? ACTION_COPY.en[action.key] ?? action.label };
 }
 
@@ -109,8 +109,13 @@ export const ACTIONS = [
   { key: "orbit", label: "Orbit", icon: "orbit", duration: 1.55 },
 ];
 
+function detectDefaultLanguage() {
+  if (typeof navigator === "undefined") return "en";
+  return /^az\b/i.test(navigator.language) ? "az" : "en";
+}
+
 export const useMimoStore = create((set) => ({
-  language: "az",
+  language: detectDefaultLanguage(),
   mood: "happy",
   customMood: DEFAULT_CUSTOM_MOOD,
   action: null,

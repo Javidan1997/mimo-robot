@@ -19,21 +19,26 @@ npm run preview  # preview the build
 
 ## Natural Voice
 Mimo tries to use a neural TTS endpoint first and falls back to the browser voice if the
-endpoint is not available. For the best Azerbaijani voice, run the proxy with an Azure AI
-Speech resource:
+endpoint is not available. Edge TTS is the default free neural voice path:
 
 ```bash
+python -m pip install -r requirements-tts.txt
+
 # terminal 1
-$env:AZURE_SPEECH_REGION="your_region"
-$env:AZURE_SPEECH_KEY="your_key"
+$env:TTS_PROVIDER="edge"
+$env:EDGE_TTS_VOICE_AZ="az-AZ-BanuNeural"
+$env:EDGE_TTS_VOICE_EN="en-US-AriaNeural"
 npm run tts
 
 # terminal 2
 npm run dev
 ```
 
-The proxy uses `az-AZ-BanuNeural` for Azerbaijani and `en-US-JennyNeural` for English by
-default. Override them with `AZURE_SPEECH_VOICE_AZ` and `AZURE_SPEECH_VOICE_EN`.
+Override Edge voices with `EDGE_TTS_VOICE_AZ` and `EDGE_TTS_VOICE_EN`. ElevenLabs is still
+available with `TTS_PROVIDER=elevenlabs`; free ElevenLabs API keys cannot use every library
+voice by ID, so use a voice from your own **My Voices** list. Azure is still supported with
+`TTS_PROVIDER=azure`; override its voices with `AZURE_SPEECH_VOICE_AZ` and
+`AZURE_SPEECH_VOICE_EN`.
 
 ## How it works
 - `public/models/mimo.glb` - the real Mimo 3D scan, **compressed to ~757 KB** (from 15 MB)

@@ -44,8 +44,24 @@ export default function CameraAR({ open, onClose }) {
   const t = STR[language] ?? STR.en;
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const closeRef = useRef(null);
   const [status, setStatus] = useState("loading"); // loading | live | denied
   const apiRef = useRef(null);
+
+  // Focus management + Escape key
+  useEffect(() => {
+    if (!open) return undefined;
+    const prev = document.activeElement;
+    // Defer to let the portal paint first
+    const t0 = setTimeout(() => closeRef.current?.focus(), 50);
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      clearTimeout(t0);
+      window.removeEventListener("keydown", onKey);
+      prev?.focus();
+    };
+  }, [open, onClose]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -296,11 +312,11 @@ export default function CameraAR({ open, onClose }) {
   if (!open) return null;
 
   return createPortal(
-    <div className="ar-overlay" role="dialog" aria-label={t.title}>
+    <div className="ar-overlay" role="dialog" aria-modal="true" aria-label={t.title}>
       <video ref={videoRef} className="ar-video" playsInline muted />
       <canvas ref={canvasRef} className="ar-canvas" />
 
-      <button className="ar-close" type="button" onClick={onClose} aria-label={t.close}>
+      <button ref={closeRef} className="ar-close" type="button" onClick={onClose} aria-label={t.close}>
         ✕
       </button>
 
@@ -318,7 +334,7 @@ export default function CameraAR({ open, onClose }) {
         <button type="button" className="ar-btn" onClick={() => apiRef.current?.scale(0.85)} aria-label={t.smaller}>
           −
         </button>
-        <button type="button" className="ar-capture" onClick={() => apiRef.current?.capture()}>
+        <button type="button" className="ar-capture" onClick={() => apiRef.current?.capture()} aria-label={t.capture}>
           <span className="ar-capture__ring" />
         </button>
         <button type="button" className="ar-btn" onClick={() => apiRef.current?.scale(1.18)} aria-label={t.bigger}>

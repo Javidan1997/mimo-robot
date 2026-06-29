@@ -529,17 +529,36 @@ export function Roadmap() {
   );
 }
 
+const CONTACT_ERR = {
+  az: { name: "Ad tələb olunur", email: "Düzgün e-poçt daxil edin", message: "Mesaj tələb olunur" },
+  en: { name: "Name is required", email: "Valid email required", message: "Message is required" },
+};
+
 /* --------------------------------------------------------------- Contact */
 export function Contact() {
-  const { copy } = useLocale();
+  const { language, copy } = useLocale();
   const text = copy.contact;
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle"); // idle | sending | done | error | not_configured
-  const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+  const [fieldErrors, setFieldErrors] = useState({});
+  const errStr = CONTACT_ERR[language] ?? CONTACT_ERR.en;
+
+  const update = (key) => (e) => {
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+    if (fieldErrors[key]) setFieldErrors((prev) => ({ ...prev, [key]: "" }));
+  };
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) return;
+    const next = {};
+    if (!form.name.trim()) next.name = errStr.name;
+    if (!form.email.trim()) next.email = errStr.email;
+    if (!form.message.trim()) next.message = errStr.message;
+    if (Object.keys(next).length) {
+      setFieldErrors(next);
+      return;
+    }
+    setFieldErrors({});
     setStatus("sending");
     const { ok, error } = await submitContact(form);
     if (ok) {
@@ -557,20 +576,55 @@ export function Contact() {
         <h2 className="section__title">{text.title}</h2>
         <p className="section__lead">{text.lead}</p>
       </div>
-      <form className="contact__form glass" onSubmit={submit}>
+      <form className="contact__form glass" onSubmit={submit} noValidate>
         <div className="contact__row">
           <label className="contact__field">
             {text.name}
-            <input value={form.name} onChange={update("name")} placeholder={text.namePlaceholder} required maxLength={80} />
+            <input
+              value={form.name}
+              onChange={update("name")}
+              placeholder={text.namePlaceholder}
+              required
+              maxLength={80}
+              aria-describedby={fieldErrors.name ? "err-name" : undefined}
+              aria-invalid={fieldErrors.name ? true : undefined}
+            />
+            {fieldErrors.name && (
+              <span id="err-name" className="contact__field-err" role="alert">{fieldErrors.name}</span>
+            )}
           </label>
           <label className="contact__field">
             {text.email}
-            <input type="email" value={form.email} onChange={update("email")} placeholder={text.emailPlaceholder} required maxLength={120} />
+            <input
+              type="email"
+              value={form.email}
+              onChange={update("email")}
+              placeholder={text.emailPlaceholder}
+              required
+              maxLength={120}
+              aria-describedby={fieldErrors.email ? "err-email" : undefined}
+              aria-invalid={fieldErrors.email ? true : undefined}
+            />
+            {fieldErrors.email && (
+              <span id="err-email" className="contact__field-err" role="alert">{fieldErrors.email}</span>
+            )}
           </label>
         </div>
         <label className="contact__field">
           {text.message}
-          <textarea value={form.message} onChange={update("message")} placeholder={text.messagePlaceholder} rows={4} required maxLength={1000} />
+          <textarea
+            value={form.message}
+            onChange={update("message")}
+            placeholder={text.messagePlaceholder}
+            rows={4}
+            required
+            maxLength={1000}
+            aria-describedby={fieldErrors.message ? "err-message" : undefined}
+            aria-invalid={fieldErrors.message ? true : undefined}
+          />
+          {fieldErrors.message && (
+            <span id="err-message" className="contact__field-err" role="alert">{fieldErrors.message}</span>
+          )}
         </label>
         <div className="contact__actions">
           <button className="btn btn--primary" type="submit" disabled={status === "sending"}>
@@ -613,13 +667,14 @@ export function Waitlist() {
         ) : (
           <>
             <form className="waitlist__form" onSubmit={submit}>
+              <label htmlFor="waitlist-email" className="sr-only">{text.emailLabel}</label>
               <input
+                id="waitlist-email"
                 type="email"
                 required
                 placeholder={text.placeholder}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                aria-label={text.emailLabel}
               />
               <button className="btn btn--primary" type="submit" disabled={status === "sending"}>
                 {text.submit}
