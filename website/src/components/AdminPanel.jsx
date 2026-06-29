@@ -346,9 +346,9 @@ function Dashboard({ onSignOut }) {
                       <tr key={r.id}>
                         <td>{fmt(r.created_at)}</td>
                         <td>{r.name}</td>
-                        <td>{r.meta?.device || "—"}</td>
-                        <td className="admin-msg">{r.meta?.path || "—"}</td>
-                        <td className="admin-msg">{r.props && Object.keys(r.props).length ? JSON.stringify(r.props) : "—"}</td>
+                        <td>{r.meta?.device || "-"}</td>
+                        <td className="admin-msg">{r.meta?.path || "-"}</td>
+                        <td className="admin-msg">{r.props && Object.keys(r.props).length ? JSON.stringify(r.props) : "-"}</td>
                       </tr>
                     ))}
                     {events.length === 0 && (
@@ -392,7 +392,7 @@ export default function AdminPanel() {
   return (
     <div className="admin-root">
       <a className="admin-exit" href="#top" onClick={() => { window.location.hash = ""; }}>
-        ← Back to site
+        Back to site
       </a>
       {!isSupabaseConfigured ? (
         <div className="admin-login glass">

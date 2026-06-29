@@ -9,7 +9,7 @@ export const CONTENT = {
       {
         icon: "LED",
         title: "Reaksiya mühərriki",
-        body: "Hər cavab eyni anda dörd kanalda gəlir: söz, üz ifadəsi, LED rəngi və hərəkət. Mimo cavab vermir — eyni vaxtda danışır, hiss edir, hərəkət edir və icra edir.",
+        body: "Hər cavab eyni anda dörd kanalda gəlir: söz, üz ifadəsi, LED rəngi və hərəkət. Mimo cavab vermir - eyni vaxtda danışır, hiss edir, hərəkət edir və icra edir.",
       },
       {
         icon: "EV",
@@ -115,13 +115,13 @@ export const CONTENT = {
     buildArchitecture: [
       {
         marker: "BODY",
-        title: "Mimo Body — ESP32-S3",
-        body: "Yerli kontroller: toxunma ekranlı üz, servolar, sensorlar, LED və səs. Yalnız kiçik əmrləri icra edir və telemetriya qaytarır — OpenAI və ya ağıllı ev brendlərini tanımır.",
+        title: "Mimo Body - ESP32-S3",
+        body: "Yerli kontroller: toxunma ekranlı üz, servolar, sensorlar, LED və səs. Yalnız kiçik əmrləri icra edir və telemetriya qaytarır - OpenAI və ya ağıllı ev brendlərini tanımır.",
       },
       {
         marker: "BRAIN",
-        title: "Mimo Brain — backend",
-        body: "Bütün ağır AI burada: düşüncə, şəxsiyyət, emosiya mühərriki, əmr marşrutlaşdırması, yaddaş və təhlükəsizlik. Tövsiyə olunan stack — FastAPI.",
+        title: "Mimo Brain - backend",
+        body: "Bütün ağır AI burada: düşüncə, şəxsiyyət, emosiya mühərriki, əmr marşrutlaşdırması, yaddaş və təhlükəsizlik. Tövsiyə olunan stack - FastAPI.",
       },
       {
         marker: "APP",
@@ -136,7 +136,7 @@ export const CONTENT = {
       {
         marker: "SKILL",
         title: "Plugin / skill qatı",
-        body: "Hər funksiya modul skill kimi qurulur — TV, kondisioner, Home Assistant, taymerlər, kodlama köməkçisi, oyunlar. Monolit yox, genişlənən sistem.",
+        body: "Hər funksiya modul skill kimi qurulur - TV, kondisioner, Home Assistant, taymerlər, kodlama köməkçisi, oyunlar. Monolit yox, genişlənən sistem.",
       },
     ],
     buildHardware: [
@@ -148,12 +148,12 @@ export const CONTENT = {
       {
         marker: "SRV",
         title: "Hərəkət",
-        body: "PCA9685 16 kanallı sürücü + 6× MG90S 180° metal dişli servo: boyun, baş və qollar üçün dəqiq mövqe.",
+        body: "PCA9685 16 kanallı sürücü + 6x MG90S 180° metal dişli servo: boyun, baş və qollar üçün dəqiq mövqe.",
       },
       {
         marker: "SNS",
         title: "Sensorlar",
-        body: "VL53L0X məsafə, TTP223 kapasitiv toxunuş və MPU6050 gyro/accel — yaxınlıq və hərəkət reaksiyaları üçün.",
+        body: "VL53L0X məsafə, TTP223 kapasitiv toxunuş və MPU6050 gyro/accel - yaxınlıq və hərəkət reaksiyaları üçün.",
       },
       {
         marker: "I/O",
@@ -163,7 +163,7 @@ export const CONTENT = {
       {
         marker: "PWR",
         title: "Enerji və təhlükəsizlik",
-        body: "12V adapter → 5V 10A buck çeviricisi servo şinini qidalandırır. Paylaşılan torpaq; 12V heç vaxt birbaşa servoya verilmir.",
+        body: "12V adapter -> 5V 10A buck çeviricisi servo şinini qidalandırır. Paylaşılan torpaq; 12V heç vaxt birbaşa servoya verilmir.",
       },
     ],
   },
@@ -177,7 +177,7 @@ export const CONTENT = {
       {
         icon: "LED",
         title: "Reaction engine",
-        body: "Every answer lands on four channels at once: speech, expression, LED color, and motion. Mimo doesn't just reply — it answers, feels, moves, and acts together.",
+        body: "Every answer lands on four channels at once: speech, expression, LED color, and motion. Mimo doesn't just reply - it answers, feels, moves, and acts together.",
       },
       {
         icon: "HOME",
@@ -270,7 +270,7 @@ export const CONTENT = {
       {
         phase: "Future",
         title: "Physical desk robot",
-        body: "An ESP32-S3 touchscreen face, 6 articulated servos, distance + touch + motion sensors, an LED ring, and sound — with an upgrade path from desk base to a full body.",
+        body: "An ESP32-S3 touchscreen face, 6 articulated servos, distance + touch + motion sensors, an LED ring, and sound - with an upgrade path from desk base to a full body.",
         state: "future",
       },
     ],
@@ -283,12 +283,12 @@ export const CONTENT = {
     buildArchitecture: [
       {
         marker: "BODY",
-        title: "Mimo Body — ESP32-S3",
-        body: "The local controller: touchscreen face, servos, sensors, LED, and sound. It only runs small commands and returns telemetry — it knows nothing about OpenAI or smart-home brands.",
+        title: "Mimo Body - ESP32-S3",
+        body: "The local controller: touchscreen face, servos, sensors, LED, and sound. It only runs small commands and returns telemetry - it knows nothing about OpenAI or smart-home brands.",
       },
       {
         marker: "BRAIN",
-        title: "Mimo Brain — backend",
+        title: "Mimo Brain - backend",
         body: "All the heavy AI lives here: reasoning, personality, the emotion engine, command routing, memory, and the safety guard. Recommended stack: FastAPI.",
       },
       {
@@ -304,7 +304,7 @@ export const CONTENT = {
       {
         marker: "SKILL",
         title: "Plugin / skill layer",
-        body: "Every feature is a modular skill — TV, AC, Home Assistant, timers, coding helper, games. A system that grows, not a hardcoded monolith.",
+        body: "Every feature is a modular skill - TV, AC, Home Assistant, timers, coding helper, games. A system that grows, not a hardcoded monolith.",
       },
     ],
     buildHardware: [
@@ -316,7 +316,7 @@ export const CONTENT = {
       {
         marker: "SRV",
         title: "Motion",
-        body: "A PCA9685 16-channel driver plus 6× MG90S 180° metal-gear servos give precise positioning for neck, head, and arms.",
+        body: "A PCA9685 16-channel driver plus 6x MG90S 180° metal-gear servos give precise positioning for neck, head, and arms.",
       },
       {
         marker: "SNS",
@@ -331,7 +331,7 @@ export const CONTENT = {
       {
         marker: "PWR",
         title: "Power & safety",
-        body: "A 12V adapter → 5V 10A buck converter feeds the servo rail. Shared ground, and never 12V straight to the servos.",
+        body: "A 12V adapter -> 5V 10A buck converter feeds the servo rail. Shared ground, and never 12V straight to the servos.",
       },
     ],
   },

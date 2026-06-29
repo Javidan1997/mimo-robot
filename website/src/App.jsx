@@ -20,7 +20,7 @@ import { trackPageView } from "./lib/tracking.js";
 
 // Keep the heavy 3D bundle out of the critical path.
 const MimoStage = lazy(() => import("./three/MimoStage.jsx"));
-// Admin panel is its own route (#admin) — kept out of the main bundle.
+// Admin panel is its own route (#admin) - kept out of the main bundle.
 const AdminPanel = lazy(() => import("./components/AdminPanel.jsx"));
 
 function useIsAdminRoute() {

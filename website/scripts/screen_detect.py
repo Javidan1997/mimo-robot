@@ -49,7 +49,7 @@ for poly in me.polygons:
 print(f"[screen] z_threshold={z_threshold:.3f} selected {len(sel)} / {len(me.polygons)} faces")
 
 if not sel:
-    print("[screen] NOTHING SELECTED — loosen thresholds")
+    print("[screen] NOTHING SELECTED - loosen thresholds")
     sys.exit(0)
 
 center = sum(centers, Vector()) / len(centers)

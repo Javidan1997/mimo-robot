@@ -6,7 +6,7 @@ import { trackEvent } from "../lib/tracking.js";
 const DEFAULT_COPY = {
   eyebrow: "Camera AR",
   nativeTitle: "See Mimo in your real space.",
-  nativeBody: "Open your phone's live camera and place the 3D Mimo into the real world — move it, scale it, and capture a photo to share.",
+  nativeBody: "Open your phone's live camera and place the 3D Mimo into the real world - move it, scale it, and capture a photo to share.",
   fallbackTitle: "Prefer the system camera?",
   fallbackBody: "You can also take a plain photo or video with the native camera screen.",
   takePhoto: "Take photo",
@@ -48,7 +48,7 @@ export default function CameraStudio({ copy }) {
       <div className="ar-card glass">
         <div className="ar-card__preview" aria-hidden="true">
           <div className="ar-card__phone">
-            <span className="ar-card__mimo">▣</span>
+            <span className="ar-card__mimo">M</span>
             <span className="ar-card__pulse" />
           </div>
         </div>

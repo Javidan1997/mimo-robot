@@ -1,20 +1,20 @@
 -- ───────────────────────────────────────────────────────────────────────────
--- Mimo — Supabase schema for forms + interaction tracking + admin panel
+-- Mimo - Supabase schema for forms + interaction tracking + admin panel
 --
 -- HOW TO USE
 --   1. Create a free project at https://supabase.com
---   2. Open the project → SQL Editor → paste this whole file → Run
---   3. Create the admin user (Authentication → Users → Add user):
+--   2. Open the project -> SQL Editor -> paste this whole file -> Run
+--   3. Create the admin user (Authentication -> Users -> Add user):
 --        email:    mimoadmin@mimorobot.online   (username "mimoadmin" + domain)
 --        password: Ceyhun1968@
 --        ✅ tick "Auto Confirm User"
---   4. Project Settings → API → copy the Project URL and the anon public key
+--   4. Project Settings -> API -> copy the Project URL and the anon public key
 --      into website/.env.local (see .env.example), then redeploy.
 --
 -- SECURITY MODEL (Row-Level Security)
---   • anon (any visitor)  → may INSERT into contact_submissions, waitlist, events
+--   - anon (any visitor)  -> may INSERT into contact_submissions, waitlist, events
 --                           but may NOT read any row back.
---   • authenticated admin → may SELECT everything (read-only dashboards).
+--   - authenticated admin -> may SELECT everything (read-only dashboards).
 --   The public anon key is therefore safe to ship in the static site.
 -- ───────────────────────────────────────────────────────────────────────────
 
@@ -59,18 +59,20 @@ alter table public.contact_submissions enable row level security;
 alter table public.waitlist            enable row level security;
 alter table public.events              enable row level security;
 
--- Anonymous visitors can submit (INSERT) but never read.
+-- Anonymous visitors and signed-in admins can submit (INSERT) but never read
+-- unless a SELECT policy below also allows it. The authenticated role matters
+-- because the admin panel keeps a browser session after login.
 drop policy if exists "anon insert contact" on public.contact_submissions;
 create policy "anon insert contact"
-  on public.contact_submissions for insert to anon with check (true);
+  on public.contact_submissions for insert to anon, authenticated with check (true);
 
 drop policy if exists "anon insert waitlist" on public.waitlist;
 create policy "anon insert waitlist"
-  on public.waitlist for insert to anon with check (true);
+  on public.waitlist for insert to anon, authenticated with check (true);
 
 drop policy if exists "anon insert events" on public.events;
 create policy "anon insert events"
-  on public.events for insert to anon with check (true);
+  on public.events for insert to anon, authenticated with check (true);
 
 -- Authenticated admin (the mimoadmin user) can read everything.
 drop policy if exists "auth read contact" on public.contact_submissions;
@@ -88,9 +90,9 @@ create policy "auth read events"
 -- Data API grants. RLS still controls which rows each role can touch.
 grant usage on schema public to anon, authenticated;
 
-grant insert on public.contact_submissions to anon;
-grant insert on public.waitlist to anon;
-grant insert on public.events to anon;
+grant insert on public.contact_submissions to anon, authenticated;
+grant insert on public.waitlist to anon, authenticated;
+grant insert on public.events to anon, authenticated;
 
 grant select on public.contact_submissions to authenticated;
 grant select on public.waitlist to authenticated;

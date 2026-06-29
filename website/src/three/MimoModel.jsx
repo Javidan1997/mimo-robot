@@ -11,14 +11,14 @@ const MODEL_URL = "./models/mimo.glb?v=face2";
 /* Per-section screen anchors Mimo flies between (world units, camera fixed).
    Order MUST match the DOM section order in App.jsx. */
 const ANCHORS = [
-  { pos: [2.7, 0.1, 0], scale: 1.0 }, // hero        — text left, Mimo right
-  { pos: [-2.8, 1.5, -0.2], scale: 0.78 }, // scope       — introduce the platform story
-  { pos: [-2.9, 0.0, 0.4], scale: 1.0 }, // personality — card right, Mimo left
-  { pos: [3.25, 1.75, -0.5], scale: 0.62 }, // mood lab   — sparkle above the mixer
-  { pos: [3.2, 1.9, -0.6], scale: 0.66 }, // features  — fly top-right
-  { pos: [-3.3, 1.9, -0.6], scale: 0.66 }, // everywhere — fly top-left
-  { pos: [3.3, 1.7, -0.6], scale: 0.66 }, // roadmap   — fly top-right
-  { pos: [0.0, 1.7, 0.5], scale: 0.85 }, // waitlist  — hero finale, center
+  { pos: [2.7, 0.1, 0], scale: 1.0 }, // hero        - text left, Mimo right
+  { pos: [-2.8, 1.5, -0.2], scale: 0.78 }, // scope       - introduce the platform story
+  { pos: [-2.9, 0.0, 0.4], scale: 1.0 }, // personality - card right, Mimo left
+  { pos: [3.25, 1.75, -0.5], scale: 0.62 }, // mood lab   - sparkle above the mixer
+  { pos: [3.2, 1.9, -0.6], scale: 0.66 }, // features  - fly top-right
+  { pos: [-3.3, 1.9, -0.6], scale: 0.66 }, // everywhere - fly top-left
+  { pos: [3.3, 1.7, -0.6], scale: 0.66 }, // roadmap   - fly top-right
+  { pos: [0.0, 1.7, 0.5], scale: 0.85 }, // waitlist  - hero finale, center
 ];
 
 const ACTION_DUR = Object.fromEntries(ACTIONS.map((a) => [a.key, a.duration]));
@@ -313,7 +313,7 @@ const MimoModel = forwardRef(function MimoModel({ children }, ref) {
     let blink = 1;
     if (t < rt.blinkUntil) {
       const bp = 1 - (rt.blinkUntil - t) / 0.16; // 0..1 across the blink
-      blink = Math.abs(Math.cos(bp * Math.PI)); // open → shut → open
+      blink = Math.abs(Math.cos(bp * Math.PI)); // open -> shut -> open
     }
     face.render({
       mood: liveMood,

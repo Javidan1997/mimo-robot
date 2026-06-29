@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 // Load credentials from .env.local / .env so `npm run tts` "just works"
-// after the user pastes their Azure key — no shell exports required.
+// after the user pastes their Azure key - no shell exports required.
 function loadEnvFiles() {
   for (const file of [".env.local", ".env"]) {
     try {
@@ -86,8 +86,8 @@ function normalizeText(text, language) {
     .replace(/\bAR\b/g, language === "az" ? "artırılmış reallıq" : "AR")
     .replace(/\b3D\b/g, language === "az" ? "üç de" : "three D")
     .replace(/\bLED\b/g, language === "az" ? "led" : "LED")
-    .replace(/[“”]/g, '"')
-    .replace(/[‘’]/g, "'")
+    .replace(/[""]/g, '"')
+    .replace(/['']/g, "'")
     .replace(/\s+/g, " ")
     .trim();
 

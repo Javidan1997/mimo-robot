@@ -1,4 +1,4 @@
-Yes — that is the right product direction. **Mimo should speak, understand, and physically react**, while your desktop and mobile apps become the “control + brain + integrations” layer.
+Yes - that is the right product direction. **Mimo should speak, understand, and physically react**, while your desktop and mobile apps become the "control + brain + integrations" layer.
 
 ## Core idea
 
@@ -36,34 +36,34 @@ The mobile/desktop/backend system handles the real intelligence.
 
 You can build two modes.
 
-### Mode 1 — Fast and reliable: app-based voice
+### Mode 1 - Fast and reliable: app-based voice
 
 This is what I recommend first.
 
 ```text
 Phone/Desktop mic
-→ speech-to-text
-→ AI brain
-→ text-to-speech
-→ phone/desktop speaker or Mimo speaker
-→ ESP32 action command
+-> speech-to-text
+-> AI brain
+-> text-to-speech
+-> phone/desktop speaker or Mimo speaker
+-> ESP32 action command
 ```
 
-This is easier because your phone/laptop already has a good microphone and speaker. OpenAI’s Audio API supports speech-to-text, and its speech docs describe both speech-to-text and text-to-speech tasks, including streaming spoken output. ([developers.openai.com][1])
+This is easier because your phone/laptop already has a good microphone and speaker. OpenAI's Audio API supports speech-to-text, and its speech docs describe both speech-to-text and text-to-speech tasks, including streaming spoken output. ([developers.openai.com][1])
 
-### Mode 2 — More advanced: realtime voice conversation
+### Mode 2 - More advanced: realtime voice conversation
 
 Later, use realtime speech-to-speech:
 
 ```text
 Phone/Desktop app
-→ Realtime AI session
-→ live voice response
-→ tool calls
-→ Mimo movement/actions
+-> Realtime AI session
+-> live voice response
+-> tool calls
+-> Mimo movement/actions
 ```
 
-OpenAI’s Realtime API supports WebRTC connections for realtime models, and the Realtime conversations docs cover audio/text generation, image input, and function calling event flows. ([developers.openai.com][2])
+OpenAI's Realtime API supports WebRTC connections for realtime models, and the Realtime conversations docs cover audio/text generation, image input, and function calling event flows. ([developers.openai.com][2])
 
 ## Reaction engine
 
@@ -193,7 +193,7 @@ Example tool list:
 ]
 ```
 
-OpenAI’s function-calling docs describe this exact pattern: models can connect to external systems and actions provided by your application through structured tools. ([developers.openai.com][3])
+OpenAI's function-calling docs describe this exact pattern: models can connect to external systems and actions provided by your application through structured tools. ([developers.openai.com][3])
 
 ## Smart home, TV, AC
 
@@ -202,7 +202,7 @@ For this, use **Home Assistant as the bridge**.
 Mimo should not directly support every TV/AC brand from day one. Instead:
 
 ```text
-Mimo → Home Assistant → TV / AC / lights / plugs / sensors
+Mimo -> Home Assistant -> TV / AC / lights / plugs / sensors
 ```
 
 Home Assistant provides a REST API on the same port as the frontend, with JSON requests/responses, and also has WebSocket APIs used by its frontend/backend communication. ([developers.home-assistant.io][4])
@@ -210,11 +210,11 @@ Home Assistant provides a REST API on the same port as the frontend, with JSON r
 Example Mimo commands:
 
 ```text
-“Mimo, turn on the TV”
-“Mimo, set AC to 23 degrees”
-“Mimo, make the room cozy”
-“Mimo, start movie mode”
-“Mimo, turn off all lights”
+"Mimo, turn on the TV"
+"Mimo, set AC to 23 degrees"
+"Mimo, make the room cozy"
+"Mimo, start movie mode"
+"Mimo, turn off all lights"
 ```
 
 Behind the scenes:
@@ -295,7 +295,7 @@ Long-term memory:
 Example:
 
 ```text
-“Mimo, start my coding mode.”
+"Mimo, start my coding mode."
 ```
 
 Mimo remembers:
@@ -338,14 +338,14 @@ High-risk actions: blocked by default
 - unlock doors
 ```
 
-Also keep API keys only on your backend/server. OpenAI’s API docs say API keys should not be exposed in client-side code such as browsers or apps, and should be loaded from environment variables or a server-side key-management service. ([developers.openai.com][5])
+Also keep API keys only on your backend/server. OpenAI's API docs say API keys should not be exposed in client-side code such as browsers or apps, and should be loaded from environment variables or a server-side key-management service. ([developers.openai.com][5])
 
 ## Best development order
 
-### Phase 1 — Mimo reacts without AI
+### Phase 1 - Mimo reacts without AI
 
 ```text
-Mobile/Desktop button → backend → ESP32
+Mobile/Desktop button -> backend -> ESP32
 ```
 
 Commands:
@@ -360,27 +360,27 @@ play sound
 set LED color
 ```
 
-### Phase 2 — Mimo understands text
+### Phase 2 - Mimo understands text
 
 ```text
-You type: “Mimo, be happy”
+You type: "Mimo, be happy"
 AI returns:
 - speech
 - emotion
 - robot actions
 ```
 
-### Phase 3 — Mimo understands voice
+### Phase 3 - Mimo understands voice
 
 ```text
 Push-to-talk in mobile/desktop app
-→ STT
-→ AI
-→ TTS
-→ robot reaction
+-> STT
+-> AI
+-> TTS
+-> robot reaction
 ```
 
-### Phase 4 — Smart home skills
+### Phase 4 - Smart home skills
 
 ```text
 Home Assistant integration
@@ -390,7 +390,7 @@ lights mode
 routines
 ```
 
-### Phase 5 — Realtime conversation
+### Phase 5 - Realtime conversation
 
 ```text
 Low-latency voice

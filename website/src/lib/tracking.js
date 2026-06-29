@@ -2,7 +2,7 @@ import { supabase, isSupabaseConfigured } from "./supabase.js";
 
 // A lightweight, privacy-conscious interaction tracker. It records anonymous
 // product events (page views, mood selections, camera opens, CTA clicks) into
-// the `events` table. No cookies, no PII — only a random per-browser visitor id
+// the `events` table. No cookies, no PII - only a random per-browser visitor id
 // kept in localStorage so we can roughly count unique visitors.
 
 const VISITOR_KEY = "mimo_visitor_id";

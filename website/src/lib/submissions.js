@@ -31,7 +31,7 @@ export async function joinWaitlist({ email }) {
   const { error } = await supabase
     .from("waitlist")
     .insert({ email, meta: meta() });
-  // Treat duplicate email as success — they're already on the list.
+  // Treat duplicate email as success - they're already on the list.
   if (error && !/duplicate|unique/i.test(error.message)) {
     return { ok: false, error: error.message };
   }

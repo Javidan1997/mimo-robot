@@ -1,15 +1,15 @@
 export const SITE_COPY = {
   az: {
     meta: {
-      title: "Mimo — masaüstü AI companion robot platforması",
+      title: "Mimo - masaüstü AI companion robot platforması",
       description: "Mimo səs, üz ifadəsi, işıq və hərəkəti bir xarakterdə birləşdirən AI companion robot platformasıdır. Canlı 3D demonu sına və mobil tətbiq ilə fiziki robot buraxılışına erkən qoşul.",
-      socialDescription: "Mimo — hiss edə biləcəyin şəxsiyyətli masaüstü AI companion. Canlı 3D demonu sına; eyni xarakter mobil, kamera AR və fiziki robota qədər miqyaslanır.",
+      socialDescription: "Mimo - hiss edə biləcəyin şəxsiyyətli masaüstü AI companion. Canlı 3D demonu sına; eyni xarakter mobil, kamera AR və fiziki robota qədər miqyaslanır.",
       locale: "az_AZ",
     },
     nav: { scope: "Layihə", personality: "Şəxsiyyət", moodLab: "Əhval studiyası", features: "Funksiyalar", everywhere: "Platformalar", camera: "Kamera", build: "Quruluş", roadmap: "Yol xəritəsi", contact: "Əlaqə", waitlist: "Erkən giriş" },
     hero: {
       eyebrow: "Mimo · AI companion robot platforması",
-      titleStart: "Masaüstü AI companion —",
+      titleStart: "Masaüstü AI companion -",
       titleAccent: "hiss edə biləcəyin şəxsiyyət",
       titleEnd: ".",
       lead: "Mimo AI-ı mətn qutusundan çıxarıb real companion-a çevirir: səs, üz ifadəsi, işıq və hərəkət bir xarakterdə. Eyni şəxsiyyət bu canlı 3D prototipdən mobil tətbiqə, kamera AR-a və fiziki masa robotuna qədər miqyaslanır.",
@@ -19,10 +19,10 @@ export const SITE_COPY = {
     },
     scope: {
       eyebrow: "Məhsul vizyonu",
-      title: "Bir gadcet yox — companion platforması.",
+      title: "Bir gadcet yox - companion platforması.",
       lead: "Əksər robotlar bir sərt cihaz kimi satılır. Mimo isə veb, mobil, kamera AR və aparatı əhatə edən vahid AI şəxsiyyətidir. Hər yeni səth məhsulu sıfırdan başlatmadan auditoriyanı və gəlir nöqtələrini genişləndirir.",
       noteTitle: "Gövdə sadə, beyin buludda",
-      note: "Robotun gövdəsi (ESP32-S3) sadə qalır — yalnız üz, servo, işıq və səs əmrlərini icra edir. Bütün ağır AI backend beyində yaşayır. Bu bölgü proqramı sürətlə buraxmağa və aparatı firmware-i yenidən yazmadan ucuz təkmilləşdirməyə imkan verir.",
+      note: "Robotun gövdəsi (ESP32-S3) sadə qalır - yalnız üz, servo, işıq və səs əmrlərini icra edir. Bütün ağır AI backend beyində yaşayır. Bu bölgü proqramı sürətlə buraxmağa və aparatı firmware-i yenidən yazmadan ucuz təkmilləşdirməyə imkan verir.",
     },
     personality: {
       eyebrow: "Şəxsiyyət sistemi",
@@ -65,7 +65,7 @@ export const SITE_COPY = {
     featuresHead: {
       eyebrow: "Funksiyalar",
       title: "Masanda qalmağı qazanmaq üçün qurulub.",
-      lead: "Səs, görünən reaksiya mühərriki, yaddaş və cihaz idarəsi birlikdə işləyir — bir dəfə sınanıb kənara qoyulan gadcetlə hər gün istifadə olunan companion arasındakı fərq budur.",
+      lead: "Səs, görünən reaksiya mühərriki, yaddaş və cihaz idarəsi birlikdə işləyir - bir dəfə sınanıb kənara qoyulan gadcetlə hər gün istifadə olunan companion arasındakı fərq budur.",
     },
     everywhere: {
       eyebrow: "Platformalar",
@@ -79,7 +79,7 @@ export const SITE_COPY = {
       title: "Mimonu real mühitə yerləşdir.",
       lead: "Kameranı aç, Mimonu masa üzərində və ya selfie kadrında yerləşdir, sonra görüntünü paylaş və ya WhatsApp üçün sticker faylı kimi ixrac et.",
       nativeTitle: "Mimonu real məkanında gör.",
-      nativeBody: "Telefonunun canlı kamerasını aç və 3D Mimonu real dünyaya yerləşdir — sürüşdür, ölçüsünü dəyiş və paylaşmaq üçün şəkil çək.",
+      nativeBody: "Telefonunun canlı kamerasını aç və 3D Mimonu real dünyaya yerləşdir - sürüşdür, ölçüsünü dəyiş və paylaşmaq üçün şəkil çək.",
       fallbackBody: "İstəsən, sistem kamerası ilə adi şəkil və ya video da çəkə bilərsən.",
       takePhoto: "Şəkil çək",
       recordVideo: "Video çək",
@@ -95,12 +95,12 @@ export const SITE_COPY = {
       ],
       startCamera: "Kameranı aç",
       restartCamera: "Kameranı yenilə",
-      switchCamera: "Ön/arxa kamera",
+      switchCamera: "?n/arxa kamera",
       cameraError: "Kamera açıla bilmədi. İcazəni yoxla və HTTPS və ya localhost üzərindən yenidən sına.",
       cameraFirst: "Şəkil çəkmək üçün əvvəl kameranı aç.",
       positionX: "Üfüqi mövqe",
       positionY: "Şaquli mövqe",
-      scale: "Ölçü",
+      scale: "?l??",
       turn: "Bucaq",
       capture: "Şəkil çək / paylaş",
       sticker: "Sticker ixrac et",
@@ -171,7 +171,7 @@ export const SITE_COPY = {
       lead: "Açar qərar: robot gövdəsini sadə saxla, bütün ağır AI-ı bulud, mobil və masaüstü tətbiqlərdə işlət. Platforma proqramı sürətlə buraxır, aparatı ucuz təkmilləşdirir və eyni şəxsiyyəti hər cihazda təkrar istifadə edir.",
       architectureTitle: "Qatlı arxitektura",
       hardwareTitle: "v1 aparat dəsti",
-      protocolTitle: "Gövdə ↔ beyin əmr protokolu",
+      protocolTitle: "Gövdə <-> beyin əmr protokolu",
       protocolNote: "Backend kiçik, strukturlaşmış JSON əmrləri göndərir; firmware yalnız üz, servo, LED və səsi icra edir. Hər AI cavabı eyni anda nitq, emosiya və hərəkət yaradır.",
     },
     roadmap: {
@@ -182,7 +182,7 @@ export const SITE_COPY = {
     contact: {
       eyebrow: "Əlaqə",
       title: "Komanda ilə danış.",
-      lead: "İnvestor, tərəfdaş, media və ya erkən müştəri — nə ilə maraqlandığını yaz, tez cavab verək.",
+      lead: "İnvestor, tərəfdaş, media və ya erkən müştəri - nə ilə maraqlandığını yaz, tez cavab verək.",
       name: "Ad",
       namePlaceholder: "Adın",
       email: "E-poçt",
@@ -197,7 +197,7 @@ export const SITE_COPY = {
     },
     waitlist: {
       title: "Mimonu ilk əldə edənlərdən ol.",
-      lead: "Tətbiqlərə erkən giriş və fiziki robot buraxılışında yerini tut. Spam yox — yalnız real məhsul mərhələləri.",
+      lead: "Tətbiqlərə erkən giriş və fiziki robot buraxılışında yerini tut. Spam yox - yalnız real məhsul mərhələləri.",
       placeholder: "sen@email.com",
       submit: "Erkən girişə qoşul",
       done: "Siyahıya əlavə olundun. Növbəti Mimo yeniliklərini ilk görənlərdən olacaqsan.",
@@ -205,13 +205,13 @@ export const SITE_COPY = {
       notConfigured: "Siyahı hələ tam qoşulmayıb. Tezliklə aktiv olacaq.",
       emailLabel: "E-poçt ünvanı",
     },
-    footer: { tag: "Mimo — masaüstü AI companion robot platforması.", legal: "Məhsul düşüncəsi ilə qurulur." },
+    footer: { tag: "Mimo - masaüstü AI companion robot platforması.", legal: "Məhsul düşüncəsi ilə qurulur." },
   },
   en: {
     meta: {
-      title: "Mimo — the desktop AI companion robot platform",
+      title: "Mimo - the desktop AI companion robot platform",
       description: "Mimo is an AI companion robot platform that blends voice, expression, light, and motion into one character. Try the live 3D demo and get early access to the apps and the physical robot.",
-      socialDescription: "Mimo — a desktop AI companion with a personality you can feel. Try the live 3D demo; the same character scales to mobile, camera AR, and a physical robot.",
+      socialDescription: "Mimo - a desktop AI companion with a personality you can feel. Try the live 3D demo; the same character scales to mobile, camera AR, and a physical robot.",
       locale: "en_US",
     },
     nav: { scope: "Project", personality: "Personality", moodLab: "Mood Studio", features: "Features", everywhere: "Platforms", camera: "Camera", build: "How it's built", roadmap: "Roadmap", contact: "Contact", waitlist: "Early access" },
@@ -234,10 +234,10 @@ export const SITE_COPY = {
     },
     scope: {
       eyebrow: "Product vision",
-      title: "A companion platform — not a one-off gadget.",
-      lead: "Most robots ship as a single rigid device. Mimo is one AI personality that spans web, mobile, camera AR, and hardware — so every new surface expands the audience and the revenue, instead of restarting the product.",
+      title: "A companion platform - not a one-off gadget.",
+      lead: "Most robots ship as a single rigid device. Mimo is one AI personality that spans web, mobile, camera AR, and hardware - so every new surface expands the audience and the revenue, instead of restarting the product.",
       noteTitle: "Simple body, brain in the cloud",
-      note: "The robot body (ESP32-S3) stays simple — it only runs face, servo, light, and sound commands. All the heavy AI lives in a backend brain. That split lets the platform ship software fast and upgrade hardware cheaply, without rewriting firmware.",
+      note: "The robot body (ESP32-S3) stays simple - it only runs face, servo, light, and sound commands. All the heavy AI lives in a backend brain. That split lets the platform ship software fast and upgrade hardware cheaply, without rewriting firmware.",
     },
     moodLab: {
       eyebrow: "Mood Studio",
@@ -273,7 +273,7 @@ export const SITE_COPY = {
     featuresHead: {
       eyebrow: "Features",
       title: "Built to earn a place on your desk.",
-      lead: "Voice, a visible reaction engine, memory, and device control work together — the difference between a gadget people try once and a companion they keep using every day.",
+      lead: "Voice, a visible reaction engine, memory, and device control work together - the difference between a gadget people try once and a companion they keep using every day.",
     },
     everywhere: {
       eyebrow: "Platforms",
@@ -287,7 +287,7 @@ export const SITE_COPY = {
       title: "Place Mimo in your real space.",
       lead: "Open the camera, position Mimo on your desk or in a selfie, then capture the image or export a sticker asset.",
       nativeTitle: "See Mimo in your real space.",
-      nativeBody: "Open your phone's live camera and place the 3D Mimo into the real world — move it, scale it, and capture a photo to share.",
+      nativeBody: "Open your phone's live camera and place the 3D Mimo into the real world - move it, scale it, and capture a photo to share.",
       fallbackBody: "You can also take a plain photo or video with the native camera screen.",
       takePhoto: "Take photo",
       recordVideo: "Record video",
@@ -379,7 +379,7 @@ export const SITE_COPY = {
       lead: "The core decision: keep the robot body simple and run all the heavy AI in the cloud, mobile, and desktop apps. The platform ships software fast, upgrades hardware cheaply, and reuses one personality across every device.",
       architectureTitle: "Layered architecture",
       hardwareTitle: "v1 hardware",
-      protocolTitle: "Body ↔ brain command protocol",
+      protocolTitle: "Body <-> brain command protocol",
       protocolNote: "The backend sends small, structured JSON commands; the firmware just runs the face, servos, LED, and sound. Every AI response produces speech, emotion, and motion together.",
     },
     roadmap: {
@@ -390,7 +390,7 @@ export const SITE_COPY = {
     contact: {
       eyebrow: "Contact",
       title: "Talk to the team.",
-      lead: "Investors, partners, press, or early customers — tell us what you're interested in and we'll get back fast.",
+      lead: "Investors, partners, press, or early customers - tell us what you're interested in and we'll get back fast.",
       name: "Name",
       namePlaceholder: "Your name",
       email: "Email",
@@ -405,7 +405,7 @@ export const SITE_COPY = {
     },
     waitlist: {
       title: "Be first to get Mimo.",
-      lead: "Get early access to the apps and claim your place for the physical robot launch. No spam — just real product milestones.",
+      lead: "Get early access to the apps and claim your place for the physical robot launch. No spam - just real product milestones.",
       placeholder: "you@email.com",
       submit: "Join early access",
       done: "You are on the list. You will be among the first to see the next Mimo updates.",
@@ -413,7 +413,7 @@ export const SITE_COPY = {
       notConfigured: "The list isn't fully connected yet. Coming online soon.",
       emailLabel: "Email address",
     },
-    footer: { tag: "Mimo — the desktop AI companion robot platform.", legal: "Built with product intent." },
+    footer: { tag: "Mimo - the desktop AI companion robot platform.", legal: "Built with product intent." },
   },
 };
 
