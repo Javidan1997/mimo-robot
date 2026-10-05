@@ -1,0 +1,21 @@
+sku,product,category,list_price
+ESP-001,Espresso,Coffee,2.80
+ESP-002,Double Espresso,Coffee,3.60
+AME-001,Americano,Coffee,3.20
+CAP-001,Cappuccino,Coffee,3.90
+LAT-001,Caffè Latte,Coffee,4.10
+FLW-001,Flat White,Coffee,4.00
+MOC-001,Mocha,Coffee,4.50
+CRM-001,Café Crème,Coffee,4.20
+CLD-001,Cold Brew,Coffee,4.40
+MAT-001,Matcha Latte,Tea,4.60
+CHA-001,Chai Latte,Tea,4.30
+TEA-001,Earl Grey Tea,Tea,2.90
+CRO-001,Butter Croissant,Bakery,2.60
+CRO-002,Almond Croissant,Bakery,3.40
+MUF-001,Blueberry Muffin,Bakery,3.10
+BAN-001,Banana Bread,Bakery,3.20
+SAN-001,Ham & Cheese Toastie,Food,5.80
+SAN-002,Crème Brûlée Tart,Food,4.90
+BAG-001,Whole Bean 250g – House Blend,Retail,11.50
+BAG-002,Whole Bean 250g – Décaf,Retail,12.50

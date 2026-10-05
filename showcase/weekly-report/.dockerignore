@@ -1,0 +1,6 @@
+landing/
+output/
+sample_output/
+tests/
+**/__pycache__
+.pytest_cache
