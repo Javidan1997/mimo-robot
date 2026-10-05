@@ -1,0 +1,144 @@
+# One block per source. Adding a new store or export = adding a block here, not code.
+#
+# columns:   canonical name -> header in the client's file
+# date_formats: tried in order; real Excel dates are accepted as-is
+# decimal:   "." or "," (European exports)
+# discount:  fraction (0.1) | percent (10) | amount (absolute money off the line)
+
+downtown:
+  store: Downtown
+  pattern: "downtown_pos_*.csv"
+  format: csv
+  encoding: utf-8
+  delimiter: ","
+  date_formats: ["%Y-%m-%d"]
+  discount: fraction
+  columns:
+    order_id: order_id
+    order_date: order_date
+    sku: sku
+    product: product_name
+    qty: qty
+    unit_price: unit_price
+    discount: discount_pct
+
+harbor:
+  store: Harbor
+  pattern: "Harbor Sales*.xlsx"
+  format: xlsx
+  sheet: Export
+  header_row: 3            # two title rows above the real header
+  date_formats: ["%d/%m/%Y"]
+  discount: percent
+  columns:
+    order_id: Order No
+    order_date: Date
+    sku: Item Code
+    product: Item
+    qty: Quantity
+    unit_price: Price
+    discount: Disc %
+
+uptown:
+  store: Uptown
+  pattern: "uptown_export.csv"
+  format: csv
+  encoding: utf-8          # wrong on purpose: the file is really Windows-1252 -> fallback kicks in
+  delimiter: ";"
+  decimal: ","
+  date_formats: ["%d.%m.%Y"]
+  discount: fraction
+  columns:
+    order_id: Beleg
+    order_date: Datum
+    sku: Artikel
+    product: Bezeichnung
+    qty: Menge
+    unit_price: Preis
+    discount: Rabatt
+
+airport:
+  store: Airport
+  pattern: "AIRPORT_SALES*.csv"
+  format: csv
+  encoding: utf-8
+  delimiter: ","
+  date_formats: ["%Y-%m-%d %H:%M", "%m/%d/%Y"]
+  discount: fraction
+  columns:
+    order_id: "Txn #"
+    order_date: Txn Date
+    sku: SKU
+    product: Description
+    qty: Units
+    unit_price: Unit Price ($)
+    discount: Discount
+
+campus:
+  store: Campus
+  pattern: "campus*.xlsx"
+  format: xlsx
+  sheet: Sheet1
+  header_row: 1
+  date_formats: ["%Y-%m-%d"]
+  discount: fraction
+  columns:
+    order_id: Receipt
+    order_date: Day
+    sku: Code
+    product: Product
+    qty: Qty
+    unit_price: Unit
+    discount: Discount
+
+webshop:
+  store: Online
+  pattern: "webshop_orders*.csv"
+  format: csv
+  encoding: utf-8
+  delimiter: ","
+  date_formats: ["%Y-%m-%d %H:%M:%S %z"]
+  discount: amount
+  fix_mojibake: true       # product names were double-encoded by the export tool
+  columns:
+    order_id: Name
+    order_date: Created at
+    sku: Lineitem sku
+    product: Lineitem name
+    qty: Lineitem quantity
+    unit_price: Lineitem price
+    discount: Discount Amount
+
+mall:
+  store: Mall
+  pattern: "mall_pos_*.csv"   # expected every week; missing in the demo week
+  format: csv
+  encoding: utf-8
+  delimiter: ","
+  date_formats: ["%Y-%m-%d"]
+  discount: fraction
+  columns:
+    order_id: order_id
+    order_date: order_date
+    sku: sku
+    product: product_name
+    qty: qty
+    unit_price: unit_price
+    discount: discount_pct
+
+station:
+  store: Station
+  pattern: "station_pos*.csv"  # arrives after the cutoff in the demo week
+  format: csv
+  encoding: utf-8
+  delimiter: ","
+  date_formats: ["%Y-%m-%d"]
+  discount: fraction
+  columns:
+    order_id: order_id
+    order_date: date
+    sku: sku
+    product: item
+    qty: qty
+    unit_price: price
+    discount: discount

@@ -1,0 +1,20 @@
+# Run settings for the weekly report. The company is fictional and all data is synthetic.
+company: Fernhill Coffee Co. (fictional)
+landing_dir: landing          # where store files arrive (SFTP drop, shared drive, email export...)
+output_dir: output            # one folder per ISO week, safe to re-run
+catalog: config/catalog.csv   # reference data: valid SKUs and list prices
+sources: config/sources.yaml  # one mapping block per source file
+
+# Files must arrive by Monday 06:00 after the reporting week. Later files are still
+# processed but flagged LATE.
+cutoff_hours_after_week_end: 6
+
+rules:
+  max_qty_per_line: 50
+  max_discount: 0.5
+  price_tolerance: 0.5        # unit price must be within +/-50% of list price
+
+alerts:
+  reject_rate_threshold: 0.05 # alert if more than 5% of rows are rejected
+  # Optional channels. Leave unset to log to the console only.
+  # SLACK_WEBHOOK_URL / ALERT_EMAIL_TO / SMTP_HOST are read from the environment.

@@ -1,0 +1,10 @@
+# Build last week's report every Monday at 07:05 (after the 06:00 file cutoff).
+# Server time zone assumed to match the business. Install with: crontab cron/crontab.example
+SHELL=/bin/sh
+5 7 * * MON  cd /opt/weekly-report && PYTHONPATH=src /usr/bin/python3 -m weekly_report.cli run >> output/cron.log 2>&1
+
+# Re-check at 12:05 so late files (flagged LATE) are picked up. Unchanged inputs = no-op.
+5 12 * * MON cd /opt/weekly-report && PYTHONPATH=src /usr/bin/python3 -m weekly_report.cli run >> output/cron.log 2>&1
+
+# Docker alternative:
+# 5 7 * * MON docker run --rm -v /srv/drop:/app/landing -v /srv/reports:/app/output weekly-report python -m weekly_report.cli run
